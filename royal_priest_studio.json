@@ -1,44 +1,90 @@
 {
-    "studio_profile": {
+    "studio_info": {
         "name": "Royal Priest Studios Limited",
+        "tagline": "Creative Collective • Ibadan",
         "email": "royalprieststudio@gmail.com",
         "phone": "+2347080868471",
-        "instagram_media": "@rpstudios_ng",
-        "instagram_music": "@royalpriestmusic_studio",
+        "whatsapp_number": "2347080868471",
+        "whatsapp_default_msg": "Hello Royal Priest Studios, I saw your portfolio and I'm interested in booking a session!",
         "location": "Araromi Junction, Odo Ona, Apata Rd, Ibadan",
-        "about": "A creative collective of music and photography professionals dedicated to delivering exceptional services."
+        "socials": {
+            "instagram_media": "@rpstudios_ng",
+            "instagram_music": "@royalpriestmusic_studio",
+            "youtube_channel": "youtube.com/@royalpriesttv-media"
+        }
     },
     "business_rules": {
-        "payment_terms": {
-            "commitment_fee": "20%",
-            "upfront_payment": "60%",
-            "final_balance": "20%"
+        "payment_structure": {
+            "commitment": "20% (Non-refundable to secure date)",
+            "upfront": "60% (Due 2 weeks before event)",
+            "balance": "20% (Due 4 weeks after event)"
         },
-        "travel_policy": "Outside Ibadan: transportation, feeding, and accommodation handled by client.",
+        "travel_policy": "Inside Ibadan: Free. Outside Ibadan: Client covers logistics (Transport, Feeding, Accommodation).",
+        "negotiation_policy": "All packages are open to slight negotiation based on specific needs.",
         "drone_fee": 80000
     },
+    "event_ticker": [
+        { "status": "LATEST", "title": "The Adewale Wedding", "detail": "Completed April 2026" },
+        { "status": "UPCOMING", "title": "Music Masterclass", "detail": "Live in Studio - June 10th" }
+    ],
+    "gallery": [
+        { "category": "Wedding", "url": "images/wedding_01.jpg", "caption": "The Royal Union" },
+        { "category": "Portrait", "url": "images/portrait_01.jpg", "caption": "Corporate Headshots" },
+        { "category": "Studio", "url": "images/studio_01.jpg", "caption": "Live Recording Session" },
+        { "category": "Cinema", "url": "images/cinema_01.jpg", "caption": "Short Film Production" }
+    ],
+    "videos": [
+        { 
+            "title": "Acoustic Live Session", 
+            "youtube_id": "dQw4w9WgXcQ", 
+            "category": "Music Production",
+            "description": "High-fidelity multitrack recording."
+        },
+        { 
+            "title": "Cinematic Wedding Highlight", 
+            "youtube_id": "z97631S221", 
+            "category": "Cinematography",
+            "description": "Story-driven wedding coverage."
+        }
+    ],
     "service_categories": [
         {
             "category": "Photography",
             "slug": "photography",
             "packages": [
                 {
-                    "name": "One day wedding Silver Package",
+                    "name": "One Day Wedding Silver",
                     "price": 200999,
-                    "image": "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=800",
-                    "features": [
-                        "One day coverage",
-                        "Pre-wedding (Free in Ibadan)"
-                    ]
+                    "image": "images/silver_wedding.jpg",
+                    "description": "Perfect for one-day celebrations. Includes pre-wedding session (Ibadan), full-day coverage, and digital delivery.",
+                    "features": ["8 Hours Coverage", "Pre-wedding (Free in Ibadan)", "150+ Edited Photos"]
                 },
                 {
-                    "name": "Two days Silver wedding Package",
+                    "name": "Two Days Silver Wedding",
                     "price": 250999,
-                    "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=800",
-                    "features": [
-                        "Engagement & White wedding",
-                        "Pre-wedding (Free in Ibadan)"
-                    ]
+                    "image": "images/gold_wedding.jpg",
+                    "description": "Comprehensive coverage for both Engagement and White Wedding ceremonies.",
+                    "features": ["Engagement Coverage", "White Wedding Coverage", "Standard Photobook"]
+                }
+            ]
+        },
+        {
+            "category": "Music & Audio",
+            "slug": "music",
+            "packages": [
+                {
+                    "name": "Live Multitrack Session",
+                    "price": 40999,
+                    "image": "images/live_music.jpg",
+                    "description": "Professional multitrack recording for bands or solo artists.",
+                    "features": ["3 Hours Session", "Post-mix included", "Acoustically Treated Room"]
+                },
+                {
+                    "name": "Radio Jingles",
+                    "price": 50999,
+                    "image": "images/jingles.jpg",
+                    "description": "High-impact audio branding for businesses and events.",
+                    "features": ["Script Assistance", "Voiceover Talent", "Broadcast Quality"]
                 }
             ]
         },
@@ -47,36 +93,11 @@
             "slug": "videography",
             "packages": [
                 {
-                    "name": "Two days Videography Package 2",
-                    "price": 400999,
-                    "image": "https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&q=80&w=800",
-                    "features": [
-                        "Two short video clips",
-                        "Professional Videographers"
-                    ]
-                }
-            ]
-        },
-        {
-            "category": "Music Studio",
-            "slug": "music",
-            "packages": [
-                {
-                    "name": "Live Session",
-                    "price": 40999,
-                    "image": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=800",
-                    "features": [
-                        "Live multi-track recording"
-                    ]
-                },
-                {
-                    "name": "Jingles",
-                    "price": 50999,
-                    "image": "https://images.unsplash.com/photo-1559732277-7453b141e3a1?auto=format&fit=crop&q=80&w=800",
-                    "features": [
-                        "Professional Voiceover",
-                        "Mixing & Mastering"
-                    ]
+                    "name": "One Day Cinema Package",
+                    "price": 200999,
+                    "image": "images/video_pkg.jpg",
+                    "description": "Story-driven videography with professional color grading.",
+                    "features": ["One Short Highlight Clip", "One Videographer", "Flash Drive Delivery"]
                 }
             ]
         }
