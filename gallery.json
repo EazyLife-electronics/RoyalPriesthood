@@ -1,18 +1,30 @@
 [
   {
-    "title": "Odogwu Live Session",
-    "date": "May 2026",
-    "desc": "Powerful live recording session with Odogwu. The energy in the room was unmatched.",
-    "type": "video",
-    "url": "https://www.youtube.com/embed/VIDEO_ID_HERE",
-    "thumbnail": "assets/images/gallery/live1.jpg"
+    "type": "image",
+    "url": "",
+    "title": "The Emmanuel Wedding",
+    "date": "March 2025",
+    "desc": "A beautifully covered royal-themed wedding in Ibadan — every sacred moment preserved with cinematic precision."
   },
   {
-    "title": "Fashion Editorial Shoot",
-    "date": "April 2026",
-    "desc": "Studio photography session with top models in Ibadan. Clean lighting and great chemistry.",
+    "type": "video",
+    "url": "",
+    "title": "Crusade Coverage",
+    "date": "January 2025",
+    "desc": "Full media coverage of an evangelistic crusade — capturing the power of God on display."
+  },
+  {
     "type": "image",
-    "url": "assets/images/gallery/fashion1.jpg",
-    "thumbnail": "assets/images/gallery/fashion1.jpg"
+    "url": "",
+    "title": "Executive Portrait Series",
+    "date": "February 2025",
+    "desc": "Professional portraits for corporate executives and ministry leaders in Ibadan and beyond."
+  },
+  {
+    "type": "image",
+    "url": "",
+    "title": "Brand Shoot 2024",
+    "date": "November 2024",
+    "desc": "A corporate brand photography session that elevated this company's visual identity and online presence."
   }
 ]
