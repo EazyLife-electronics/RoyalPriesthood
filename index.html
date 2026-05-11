@@ -8,77 +8,311 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
 <style>
   :root {
+    /* DARK MODE (Default) */
     --gold:#C9A84C; --gold-light:#E8C97A; --gold-pale:#F5E6B8;
     --black:#060606; --deep:#0D0A06; --charcoal:#1A1510; --mid:#2A2118;
     --text:#D4C09A; --muted:#7A6A4A;
     --nav-bg: rgba(6, 6, 6, 0.95);
-    --white: #FFFFFF;
+    --white: #FFFFFF; /* Titles/Headers in dark mode */
     --noise-opacity: 0.35;
   }
 
+  /* LIGHT MODE OVERRIDES */
   [data-theme="light"] {
-    --black: #FCFBF7; --deep: #F4F1E8; --charcoal: #E9E4D5; --mid: #DED8C4;
-    --text: #332D24; --muted: #6B5F4A; --nav-bg: rgba(252, 251, 247, 0.95);
-    --white: #060606; --noise-opacity: 0.15;
+    --black: #FCFBF7; 
+    --deep: #F4F1E8; 
+    --charcoal: #E9E4D5; 
+    --mid: #DED8C4;
+    --text: #332D24; 
+    --muted: #6B5F4A;
+    --nav-bg: rgba(252, 251, 247, 0.95);
+    --white: #060606; /* Titles/Headers turn dark in light mode */
+    --noise-opacity: 0.15;
+  }
+
+  /* Automatic System Preference */
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+        --black: #FCFBF7; --deep: #F4F1E8; --charcoal: #E9E4D5; --mid: #DED8C4;
+        --text: #332D24; --muted: #6B5F4A; --nav-bg: rgba(252, 251, 247, 0.95);
+        --white: #060606; --noise-opacity: 0.15;
+    }
   }
 
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
-  body{background:var(--black);color:var(--text);font-family:'Cormorant Garamond',serif;overflow-x:hidden;transition: background 0.5s ease;}
+  body{background:var(--black);color:var(--text);font-family:'Cormorant Garamond',serif;overflow-x:hidden;transition: background 0.5s ease, color 0.5s ease;}
 
   /* CURSOR */
-  .cursor{position:fixed;width:12px;height:12px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;}
-  .cursor-ring{position:fixed;width:36px;height:36px;border:1px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;transition:0.3s;}
+  .cursor{position:fixed;width:12px;height:12px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:difference;}
+  .cursor-ring{position:fixed;width:36px;height:36px;border:1px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;transition:width .2s,height .2s,opacity .3s;}
+  .cursor.expand{width:20px;height:20px;}.cursor-ring.expand{width:60px;height:60px;opacity:.2;}
+
+  /* NOISE */
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:var(--noise-opacity);
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");}
 
   /* NAV */
-  nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:24px 60px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom, var(--nav-bg), transparent);transition:0.4s;}
-  nav.scrolled{background:var(--nav-bg);border-bottom:1px solid rgba(201,168,76,.15);padding:15px 60px;}
-  .nav-logo{font-family:'Cinzel Decorative',cursive;font-size:13px;font-weight:700;color:var(--gold);text-decoration:none;text-transform:uppercase;}
-  .nav-logo span{display:block;font-size:9px;color:var(--muted);letter-spacing:.4em;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:24px 60px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom, var(--nav-bg), transparent);transition:background .4s;}
+  nav.scrolled{background:var(--nav-bg);border-bottom:1px solid rgba(201,168,76,.15);}
+  .nav-logo{font-family:'Cinzel Decorative',cursive;font-size:13px;font-weight:700;color:var(--gold);letter-spacing:.15em;text-decoration:none;text-transform:uppercase;line-height:1.3;}
+  .nav-logo span{display:block;font-size:9px;font-weight:400;color:var(--muted);letter-spacing:.4em;}
   .nav-links{display:flex;gap:40px;list-style:none;align-items:center;}
-  .nav-links a{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.3em;color:var(--muted);text-decoration:none;transition:0.3s;}
-  .theme-toggle{background:none;border:1px solid rgba(201,168,76,0.3);color:var(--gold);cursor:pointer;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
-  .nav-cta{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:10px 24px;text-decoration:none;}
+  .nav-links a{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s;position:relative;}
+  .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .3s;}
+  .nav-links a:hover{color:var(--gold-light);}.nav-links a:hover::after{transform:scaleX(1);}
+  
+  .theme-toggle {
+    background: none;
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    color: var(--gold);
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    font-size: 12px;
+  }
+  .theme-toggle:hover { background: rgba(201,168,76,0.1); border-color: var(--gold); }
+
+  .nav-cta{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:10px 24px;text-decoration:none;transition:background .3s;}
+  .nav-cta:hover{background:var(--gold-light);}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+  .hamburger span{display:block;width:24px;height:1px;background:var(--gold);transition:all .3s;}
+
+  /* MOBILE MENU */
+  .mobile-menu{display:none;position:fixed;inset:0;background:var(--nav-bg);z-index:400;flex-direction:column;align-items:center;justify-content:center;gap:40px;}
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{font-family:'Cinzel',serif;font-size:18px;letter-spacing:.3em;text-transform:uppercase;color:var(--text);text-decoration:none;transition:color .3s;}
+  .mobile-menu a:hover{color:var(--gold);}
 
   /* HERO */
-  #hero{height:100vh;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;}
-  .hero-bg{position:absolute;inset:0;background:radial-gradient(circle at center, rgba(201,168,76,0.05), transparent 70%), var(--black);}
-  .hero-title{font-family:'Cinzel Decorative',cursive;font-size:clamp(40px,8vw,90px);color:var(--white);line-height:1;}
-  .hero-title span{color:var(--gold);}
+  #hero{height:100vh;min-height:700px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(201,168,76,.08),transparent 60%),radial-gradient(ellipse 40% 40% at 80% 70%,rgba(201,168,76,.04),transparent 50%),linear-gradient(160deg, var(--deep), var(--black) 50%, var(--deep));}
+  .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.04) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,black,transparent);}
+  .hero-float{position:absolute;opacity:.12;border:1px solid rgba(201,168,76,.2);}
+  .hero-float-1{width:220px;height:300px;top:15%;left:5%;background:linear-gradient(135deg, var(--charcoal), var(--mid));animation:floatA 8s ease-in-out infinite;}
+  .hero-float-2{width:180px;height:240px;bottom:15%;right:6%;background:linear-gradient(135deg, var(--mid), var(--charcoal));animation:floatB 10s ease-in-out infinite;}
+  @keyframes floatA{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-20px) rotate(-1deg)}}
+  @keyframes floatB{0%,100%{transform:translateY(0) rotate(2deg)}50%{transform:translateY(-15px) rotate(1deg)}}
+  .hero-content{position:relative;z-index:2;text-align:center;padding:0 20px;animation:heroReveal 1.4s cubic-bezier(.16,1,.3,1) forwards;}
+  @keyframes heroReveal{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+  .hero-eyebrow{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;opacity:0;animation:fadeUp .8s .3s forwards;}
+  .hero-title{font-family:'Cinzel Decorative',cursive;font-size:clamp(40px,7vw,96px);font-weight:900;line-height:1;color:var(--white);text-shadow:0 0 80px rgba(201,168,76,.2);margin-bottom:12px;opacity:0;animation:fadeUp .8s .5s forwards;}
+  .hero-title .gold{color:var(--gold);}
+  .hero-subtitle{font-family:'Cinzel Decorative',cursive;font-size:clamp(18px,3vw,38px);font-weight:400;color:var(--gold-light);letter-spacing:.1em;margin-bottom:32px;opacity:0;animation:fadeUp .8s .7s forwards;}
+  .hero-divider{width:120px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:0 auto 32px;opacity:0;animation:fadeUp .8s .9s forwards;}
+  .hero-tagline{font-family:'Cormorant Garamond',serif;font-size:clamp(15px,2vw,20px);font-style:italic;color:var(--muted);letter-spacing:.05em;margin-bottom:52px;opacity:0;animation:fadeUp .8s 1.0s forwards;}
+  .hero-buttons{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp .8s 1.2s forwards;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .btn-primary{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:16px 40px;text-decoration:none;transition:background .3s;position:relative;overflow:hidden;}
+  .btn-primary::before{content:'';position:absolute;inset:0;background:var(--gold-light);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+  .btn-primary:hover::before{transform:scaleX(1);}
+  .btn-primary span{position:relative;z-index:1;}
+  .btn-outline{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:16px 40px;text-decoration:none;transition:background .3s;}
+  .btn-outline:hover{background:rgba(201,168,76,.08);}
+  .hero-scroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeUp .8s 1.6s forwards;}
+  .hero-scroll span{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--muted);}
+  .scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s ease-in-out infinite;}
+  @keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:1}}
 
-  /* GALLERY GRID & SWIPE CAROUSEL */
-  #gallery{padding:100px 60px;background:var(--deep);}
-  .gallery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:30px;}
-  .gallery-item{background:var(--charcoal);overflow:hidden;position:relative;user-select:none;}
+  /* SHARED */
+  section{position:relative;}
+  .gold-divider{width:100%;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);opacity:.3;}
+  .section-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:16px;}
+  .section-label::before{content:'';display:block;width:40px;height:1px;background:var(--gold);}
+  .section-title{font-family:'Cinzel Decorative',cursive;font-size:clamp(28px,4vw,52px);font-weight:700;color:var(--white);line-height:1.2;margin-bottom:24px;}
+  .section-title .gold{color:var(--gold);}
+  .section-body{font-size:clamp(16px,1.5vw,20px);line-height:1.8;color:var(--muted);font-weight:300;}
+
+  /* ABOUT */
+  #about{padding:140px 60px;background:var(--deep);}
+  .about-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;}
+  .about-visual{position:relative;height:560px;}
+  .about-frame-1{position:absolute;inset:0;border:1px solid rgba(201,168,76,.25);background:linear-gradient(135deg,var(--charcoal),var(--mid));display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .about-frame-inner{width:80%;height:80%;border:1px solid rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+  .about-icon{font-size:64px;opacity:.3;}
+  .about-placeholder-text{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.4em;color:var(--muted);text-transform:uppercase;}
+  .about-corner{position:absolute;width:60px;height:60px;}
+  .about-corner.tl{top:-12px;left:-12px;border-top:2px solid var(--gold);border-left:2px solid var(--gold);}
+  .about-corner.br{bottom:-12px;right:-12px;border-bottom:2px solid var(--gold);border-right:2px solid var(--gold);}
+  .about-badge{position:absolute;bottom:-24px;right:-24px;width:130px;height:130px;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;z-index:2;}
+  .about-badge-num{font-family:'Cinzel Decorative',cursive;font-size:36px;font-weight:900;color:var(--black);line-height:1;}
+  .about-badge-text{font-family:'Cinzel',serif;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.7);text-align:center;padding:0 8px;}
+  .about-text{padding-left:20px;}
+  .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px;}
+  .stat-card{border-left:2px solid var(--gold);padding:16px 20px;background:rgba(201,168,76,.03);}
+  .stat-num{font-family:'Cinzel Decorative',cursive;font-size:32px;font-weight:700;color:var(--gold);line-height:1;}
+  .stat-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-top:6px;}
+
+  /* SERVICES */
+  #services{padding:140px 60px;background:var(--black);}
+  .services-inner{max-width:1200px;margin:0 auto;}
+  .services-header{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-bottom:80px;align-items:end;}
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+  .service-card{background:var(--charcoal);padding:48px 36px;position:relative;overflow:hidden;transition:background .4s;}
+  .service-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+  .service-card:hover{background:var(--mid);}.service-card:hover::before{transform:scaleX(1);}
+  .service-media-wrap{width:100%;margin-bottom:24px;display:none;}
+  .service-media-wrap.visible{display:block;}
+  .service-media-wrap img{width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid rgba(201,168,76,.1);}
+  .service-media-wrap iframe{width:100%;aspect-ratio:16/9;border:none;}
+  .service-num{font-family:'Cinzel Decorative',cursive;font-size:11px;color:rgba(201,168,76,.3);letter-spacing:.2em;margin-bottom:28px;}
+  .service-icon-wrap{width:64px;height:64px;border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;margin-bottom:24px;font-size:28px;transition:border-color .3s,background .3s;color: var(--gold);}
+  .service-card:hover .service-icon-wrap{border-color:var(--gold);background:rgba(201,168,76,.08);}
+  .service-name{font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:.08em;color:var(--white);margin-bottom:10px;text-transform:uppercase;}
+  .service-desc{font-size:15px;line-height:1.7;color:var(--muted);font-weight:300;margin-bottom:14px;}
+  .service-price{font-family:'Cinzel',serif;font-size:14px;color:var(--gold);margin-bottom:24px;}
+  .btn-wa-service{display:flex;align-items:center;justify-content:center;gap:10px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;background:rgba(37,211,102,.1);color:#25D366;border:1px solid rgba(37,211,102,.25);padding:14px 20px;text-decoration:none;transition:background .3s,border-color .3s;width:100%;}
+  .btn-wa-service:hover{background:rgba(37,211,102,.2);border-color:#25D366;}
+
+  /* ═══ MODIFIED GALLERY ═══ */
+  #gallery{padding:140px 60px;background:var(--deep);}
+  .gallery-inner{max-width:1400px;margin:0 auto;}
+  .gallery-header{text-align:center;margin-bottom:80px;}
+  .gallery-header .section-label{justify-content:center;}
+  .gallery-header .section-label::before{display:none;}
   
-  /* Instagram Style Wrapper */
-  .gallery-media-wrap{position:relative;aspect-ratio:4/5;overflow:hidden;background:#000;touch-action:pan-y;}
-  .slider-container{display:flex;height:100%;transition:transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);will-change:transform;}
-  .slider-container img, .slider-container iframe{min-width:100%;width:100%;height:100%;object-fit:cover;pointer-events:none;}
-  .slider-container iframe{pointer-events:auto;}
+  /* Masonry-style Grid */
+  .gallery-grid {
+    columns: 3 300px;
+    column-gap: 20px;
+  }
+  
+  .gallery-item {
+    break-inside: avoid;
+    margin-bottom: 20px;
+    position: relative;
+    background: var(--charcoal);
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  
+  .gallery-media-wrap {
+    width: 100%;
+    position: relative;
+    line-height: 0;
+    overflow: hidden;
+  }
+  
+  .gallery-media-wrap img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.8s ease;
+  }
+  
+  .gallery-media-wrap iframe {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border: none;
+  }
 
-  /* Slider UI */
-  .slider-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.4);color:white;border:none;width:35px;height:35px;border-radius:50%;cursor:pointer;z-index:10;opacity:0;transition:0.3s;}
-  .gallery-item:hover .slider-nav{opacity:1;}
-  .prev-btn{left:10px;}.next-btn{right:10px;}
-  .slider-dots{position:absolute;bottom:15px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:11;}
-  .dot{width:6px;height:6px;background:rgba(255,255,255,0.3);border-radius:50%;transition:0.3s;}
-  .dot.active{background:var(--gold);transform:scale(1.3);}
+  /* Elegant Hover Overlay */
+  .gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(13, 10, 6, 0.9) 0%, transparent 70%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 30px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 2;
+  }
 
-  .gallery-item-body{padding:25px;}
-  .gallery-item-title{font-family:'Cinzel',serif;font-size:18px;color:var(--white);margin-bottom:8px;}
-  .gallery-item-desc{font-size:15px;color:var(--muted);line-height:1.6;}
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+  .gallery-item:hover img { transform: scale(1.08); }
+
+  .gallery-item-title {
+    font-family: 'Cinzel', serif;
+    font-size: 18px;
+    color: var(--gold-pale);
+    margin-bottom: 5px;
+    transform: translateY(10px);
+    transition: transform 0.4s ease;
+  }
+  
+  .gallery-item-category {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    transform: translateY(10px);
+    transition: transform 0.4s ease 0.1s;
+  }
+
+  .gallery-item:hover .gallery-item-title,
+  .gallery-item:hover .gallery-item-category {
+    transform: translateY(0);
+  }
+
+  .gallery-cta{text-align:center;margin-top:60px;}
+
+  /* CONTACT */
+  #contact{padding:140px 60px;background:var(--black);}
+  .contact-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:start;}
+  .contact-details{display:flex;flex-direction:column;gap:32px;margin-top:40px;}
+  .contact-item{display:flex;gap:20px;align-items:flex-start;}
+  .contact-icon{width:48px;height:48px;border:1px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;color:var(--gold);}
+  .contact-item-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
+  .contact-item-value{font-size:16px;color:var(--text);}
+  .contact-item-value a{color:var(--text);text-decoration:none;}
+  .contact-form{display:flex;flex-direction:column;gap:24px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .form-group{display:flex;flex-direction:column;gap:8px;}
+  .form-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);}
+  .form-control{background:var(--charcoal);border:1px solid rgba(201,168,76,0.15);padding:16px 20px;color:var(--text);font-family:'Cormorant Garamond',serif;font-size:16px;outline:none;transition:border-color .3s,background .3s;resize:none;width:100%;}
+  .form-control:focus{border-color:var(--gold);background:rgba(201,168,76,.03);}
+  .form-control::placeholder{color:rgba(122,106,74,.5);}
+  .btn-wa-main{display:flex;align-items:center;justify-content:center;gap:12px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.25em;text-transform:uppercase;background:#25D366;color:#fff;padding:18px 48px;text-decoration:none;transition:background .3s,transform .2s;width:100%;}
+  .btn-wa-main:hover{background:#1ebe5d;transform:translateY(-2px);}
+  .btn-wa-main i{font-size:22px;}
+  .wa-note{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:12px;}
+
+  /* FLOATING WHATSAPP */
+  .floating-wa{position:fixed;bottom:28px;right:28px;z-index:600;width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;text-decoration:none;box-shadow:0 8px 32px rgba(37,211,102,.35);transition:transform .3s,box-shadow .3s;animation:waPulse 3s ease-in-out infinite;}
+  .floating-wa:hover{transform:scale(1.1);box-shadow:0 12px 40px rgba(37,211,102,.5);}
+  @keyframes waPulse{0%,100%{box-shadow:0 8px 32px rgba(37,211,102,.35),0 0 0 0 rgba(37,211,102,.25)}50%{box-shadow:0 8px 32px rgba(37,211,102,.35),0 0 0 12px rgba(37,211,102,0)}}
+
+  /* FOOTER */
+  footer{padding:60px;background:var(--deep);border-top:1px solid rgba(201,168,76,.1);}
+  .footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;}
+  .footer-logo{font-family:'Cinzel Decorative',cursive;font-size:14px;color:var(--gold);letter-spacing:.1em;}
+  .footer-logo span{display:block;font-size:9px;color:var(--muted);letter-spacing:.3em;margin-top:4px;font-family:'Cinzel',serif;}
+  .footer-links{display:flex;gap:32px;list-style:none;}
+  .footer-links a{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s;}
+  .footer-links a:hover{color:var(--gold);}
+  .footer-copy{font-size:13px;color:rgba(122,106,74,.5);}
+
+  /* REVEAL */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  .reveal-delay-1{transition-delay:.1s;}.reveal-delay-2{transition-delay:.2s;}.reveal-delay-3{transition-delay:.3s;}.reveal-delay-4{transition-delay:.4s;}
 
   /* MOBILE */
   @media(max-width:900px){
-    nav{padding:20px;} .nav-links, .nav-cta{display:none;}
-    .gallery-grid{grid-template-columns:1fr;}
-    #gallery{padding:60px 20px;}
-    .slider-nav{display:none;} /* Arrows hidden on mobile for cleaner swipe feel */
+    nav{padding:20px 24px;}
+    .nav-links,.nav-cta{display:none;}
+    .hamburger{display:flex;}
+    #hero{height:auto;padding:140px 24px 100px;}
+    .hero-float{display:none;}
+    #about,#services,#gallery,#contact{padding:80px 24px;}
+    .about-inner,.contact-inner{grid-template-columns:1fr;gap:60px;}
+    .about-visual{height:300px;}
+    .about-text{padding-left:0;}
+    .services-header{grid-template-columns:1fr;gap:20px;}
+    .services-grid{grid-template-columns:1fr;}
+    .gallery-grid{columns: 1;}
+    .form-row{grid-template-columns:1fr;}
+    footer{padding:40px 24px;}
+    .footer-inner{flex-direction:column;align-items:flex-start;}
   }
-
-  .reveal{opacity:0;transform:translateY(30px);transition:0.8s ease-out;}
-  .reveal.visible{opacity:1;transform:translateY(0);}
 </style>
 </head>
 <body>
@@ -86,124 +320,341 @@
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
+<!-- Floating WhatsApp -->
+<a class="floating-wa" id="floatingWa" href="#" target="_blank" title="Chat on WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#hero"     onclick="closeMobile()">Home</a>
+  <a href="#about"    onclick="closeMobile()">About</a>
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#gallery"  onclick="closeMobile()">Gallery</a>
+  <a href="#contact"  onclick="closeMobile()">Contact</a>
+  <a href="#" id="mobileThemeToggle" style="color: var(--gold); border-top: 1px solid rgba(201,168,76,0.2); padding-top: 20px;">Toggle Theme</a>
+</div>
+
+<!-- NAV -->
 <nav id="navbar">
-  <a class="nav-logo" href="#">Royal Priesthood<span>Studio · Ibadan</span></a>
+  <a class="nav-logo" href="#hero">Royal Priesthood<span>Studio · Ibadan</span></a>
   <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
     <li><a href="#gallery">Gallery</a></li>
-    <li><button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button></li>
+    <li><a href="#contact">Contact</a></li>
+    <li>
+        <button class="theme-toggle" id="themeToggle" title="Switch Theme">
+            <i class="fas fa-moon"></i>
+        </button>
+    </li>
   </ul>
-  <a class="nav-cta" href="#contact">Book Session</a>
+  <a class="nav-cta" href="#contact">Book a Session</a>
+  <div class="hamburger" id="hamburger" onclick="toggleMobile()">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
 
+<!-- ═══ HERO ═══ -->
 <section id="hero">
   <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-float hero-float-1"></div>
+  <div class="hero-float hero-float-2"></div>
   <div class="hero-content">
-    <h1 class="hero-title">Royal<br/><span>Priesthood</span></h1>
-    <p style="margin-top:20px; letter-spacing:0.3em; color:var(--gold);">PHOTOGRAPHY & VIDEOGRAPHY</p>
+    <div class="hero-eyebrow">Photography &amp; Videography · Ibadan</div>
+    <h1 class="hero-title">Royal<br/><span class="gold">Priesthood</span></h1>
+    <div class="hero-subtitle">Studio</div>
+    <div class="hero-divider"></div>
+    <p class="hero-tagline" id="hero-tagline">Capturing moments. Telling sacred stories. Framing eternity.</p>
+    <div class="hero-buttons">
+      <a class="btn-primary" href="#gallery"><span>View Our Work</span></a>
+      <a class="btn-outline" id="hero-wa-btn" href="#" target="_blank">
+        <i class="fab fa-whatsapp" style="margin-right:8px;"></i>Book via WhatsApp
+      </a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span><div class="scroll-line"></div>
   </div>
 </section>
 
-<section id="gallery">
-  <div style="text-align:center; margin-bottom: 60px;">
-    <h2 style="font-family:'Cinzel Decorative'; font-size: 40px; color:var(--white);">Visual <span style="color:var(--gold);">Stories</span></h2>
-  </div>
-  <div class="gallery-grid" id="gallery-grid">
+<div class="gold-divider"></div>
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-visual reveal">
+      <div class="about-frame-1">
+        <div class="about-frame-inner">
+          <div class="about-icon">📷</div>
+          <div class="about-placeholder-text">Your Images Here</div>
+        </div>
+      </div>
+      <div class="about-corner tl"></div>
+      <div class="about-corner br"></div>
+      <div class="about-badge">
+        <div class="about-badge-num">5+</div>
+        <div class="about-badge-text">Years of Excellence</div>
+      </div>
     </div>
+    <div class="about-text">
+      <div class="section-label reveal">About Us</div>
+      <h2 class="section-title reveal reveal-delay-1">We Capture What<br/><span class="gold">Heaven Sees</span></h2>
+      <p class="section-body reveal reveal-delay-2" id="about-body">
+        Royal Priesthood Studio is more than a photography and videography company — we are storytellers, historians, and artists who believe every moment deserves to be preserved with excellence and intention. From intimate portraits to grand productions, we bring a regal touch to every frame.
+      </p>
+      <div class="about-stats" id="about-stats"></div>
+    </div>
+  </div>
 </section>
+
+<div class="gold-divider"></div>
+
+<!-- ═══ SERVICES ═══ -->
+<section id="services">
+  <div class="services-inner">
+    <div class="services-header">
+      <div>
+        <div class="section-label reveal">What We Offer</div>
+        <h2 class="section-title reveal reveal-delay-1">Our<br/><span class="gold">Services</span></h2>
+      </div>
+      <p class="reveal reveal-delay-2" style="color:var(--muted);font-size:18px;line-height:1.8;font-style:italic;">
+        Every service is crafted with intention, executed with excellence, and delivered with a royal standard.
+      </p>
+    </div>
+    <div class="services-grid" id="services-grid"></div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ═══ MODIFIED GALLERY SECTION ═══ -->
+<section id="gallery">
+  <div class="gallery-inner">
+    <div class="gallery-header">
+      <div class="section-label reveal">Recent Works &amp; Moments</div>
+      <h2 class="section-title reveal reveal-delay-1">The <span class="gold">Portfolio</span></h2>
+      <p class="section-body reveal reveal-delay-2" style="margin-top:12px;">Proof of excellence from Royal Priesthood Studio</p>
+    </div>
+    
+    <div class="gallery-grid reveal" id="gallery-grid">
+      <!-- Dynamically filled with masonry layout items -->
+    </div>
+
+    <div class="gallery-cta reveal reveal-delay-1">
+      <a href="gallery.html" class="btn-outline">View Full Gallery →</a>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-info">
+      <div class="section-label reveal">Get In Touch</div>
+      <h2 class="section-title reveal reveal-delay-1">Let's Create<br/><span class="gold">Magic Together</span></h2>
+      <p class="section-body reveal reveal-delay-2">
+        Ready to preserve your story with excellence? Reach out — your message will open directly in WhatsApp.
+      </p>
+      <div class="contact-details reveal reveal-delay-3" id="contact-details"></div>
+    </div>
+
+    <div class="reveal reveal-delay-2">
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-control" id="cf-fname" placeholder="John"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="cf-lname" placeholder="Doe"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <input type="tel" class="form-control" id="cf-phone" placeholder="+234 000 000 0000"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Service Needed</label>
+          <select class="form-control" id="cf-service">
+            <option value="">Select a service...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Your Message</label>
+          <textarea class="form-control" id="cf-message" rows="5" placeholder="Tell us about your project or event..."></textarea>
+        </div>
+        <a class="btn-wa-main" id="btn-wa-contact" href="#" target="_blank">
+          <i class="fab fa-whatsapp"></i>
+          <span>Send via WhatsApp</span>
+        </a>
+        <p class="wa-note">Tap to open WhatsApp — your message is pre-filled</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      Royal Priesthood Studio
+      <span>Photography &amp; Videography · <span id="footer-location">Ibadan, Oyo State</span></span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 Royal Priesthood Studio. All rights reserved.</div>
+  </div>
+</footer>
 
 <script>
-/* ── THEME ── */
+/* ── THEME TOGGLE ── */
 const themeToggle = document.getElementById('themeToggle');
-themeToggle.addEventListener('click', () => {
-  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-  document.documentElement.setAttribute('data-theme', isLight ? 'dark' : 'light');
-  themeToggle.querySelector('i').className = isLight ? 'fas fa-moon' : 'fas fa-sun';
+const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+const htmlElement = document.documentElement;
+const themeIcon = themeToggle.querySelector('i');
+
+function setTheme(theme) {
+    htmlElement.setAttribute('data-theme', theme);
+    localStorage.setItem('royal-priesthood-theme', theme);
+    themeIcon.className = (theme === 'light') ? 'fas fa-sun' : 'fas fa-moon';
+}
+
+const savedTheme = localStorage.getItem('royal-priesthood-theme');
+if (savedTheme) { setTheme(savedTheme); } else {
+    const isLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    themeIcon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+}
+
+function toggleTheme() {
+    const current = htmlElement.getAttribute('data-theme') || 
+                   (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    setTheme(current === 'light' ? 'dark' : 'light');
+}
+
+themeToggle.addEventListener('click', toggleTheme);
+mobileThemeToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleTheme();
+    closeMobile();
 });
 
 /* ── CURSOR ── */
-const cursor=document.getElementById('cursor'), ring=document.getElementById('cursorRing');
-document.addEventListener('mousemove', e => {
-  cursor.style.left = ring.style.left = e.clientX + 'px';
-  cursor.style.top = ring.style.top = e.clientY + 'px';
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+(function tick(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick);})();
+document.addEventListener('mouseover',e=>{
+  const over=e.target.closest('a,button,.service-card,.gallery-item');
+  cursor.classList.toggle('expand',!!over); ring.classList.toggle('expand',!!over);
 });
 
-/* ── SWIPE LOGIC ── */
-let touchStartX = 0;
-window.handleTouchStart = (e) => { touchStartX = e.changedTouches[0].screenX; };
-window.handleTouchEnd = (e, idx) => {
-  const touchEndX = e.changedTouches[0].screenX;
-  const threshold = 50;
-  if (touchEndX < touchStartX - threshold) moveSlider(idx, 1);
-  if (touchEndX > touchStartX + threshold) moveSlider(idx, -1);
-};
+/* ── NAV ── */
+const navbar=document.getElementById('navbar');
+window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',scrollY>60));
 
-window.moveSlider = (idx, dir) => {
-  const el = document.getElementById(`gal-${idx}`);
-  const cont = document.getElementById(`slide-cont-${idx}`);
-  const dots = el.querySelectorAll('.dot');
-  let current = parseInt(el.getAttribute('data-current'));
-  const total = parseInt(el.getAttribute('data-total'));
+/* ── MOBILE ── */
+function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open');}
+function closeMobile(){document.getElementById('mobileMenu').classList.remove('open');}
 
-  current = (current + dir + total) % total;
-  el.setAttribute('data-current', current);
-  cont.style.transform = `translateX(-${current * 100}%)`;
-  dots.forEach((d, i) => d.classList.toggle('active', i === current));
-};
+/* ── REVEAL ── */
+const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}}),{threshold:.1});
+function watchAll(){document.querySelectorAll('.reveal').forEach(el=>io.observe(el));}
 
-/* ── GALLERY LOADER ── */
-async function loadGallery() {
-  try {
-    const response = await fetch('gallery.json');
-    const gallery = await response.json();
-    const grid = document.getElementById('gallery-grid');
+/* ── WHATSAPP ── */
+let waNumber='';
+function buildWaLink(){
+  const fname=document.getElementById('cf-fname').value.trim();
+  const lname=document.getElementById('cf-lname').value.trim();
+  const phone=document.getElementById('cf-phone').value.trim();
+  const service=document.getElementById('cf-service').value;
+  const msg=document.getElementById('cf-message').value.trim();
+  const name=[fname,lname].filter(Boolean).join(' ')||'A client';
+  let text=`Hello Royal Priesthood Studio! 👋\n\nMy name is *${name}*.`;
+  if(phone)   text+=`\n📞 Phone: ${phone}`;
+  if(service) text+=`\n📷 Service: ${service}`;
+  if(msg)     text+=`\n\n💬 ${msg}`;
+  const num=waNumber.replace(/\D/g,'');
+  document.getElementById('btn-wa-contact').href=`https://wa.me/${num}?text=${encodeURIComponent(text)}`;
+}
+['cf-fname','cf-lname','cf-phone','cf-service','cf-message'].forEach(id=>{
+  const el=document.getElementById(id); if(el) el.addEventListener('input',buildWaLink);
+});
 
-    grid.innerHTML = gallery.map((item, idx) => {
-      // Logic for multi-media arrays
-      const mediaList = Array.isArray(item.media) ? item.media : [item.url];
-      const isMulti = mediaList.length > 1;
-      
-      const mediaHTML = mediaList.map(url => {
-        if(url.includes('embed') || url.includes('youtube')) {
-          return `<iframe src="${url}" frameborder="0" allowfullscreen></iframe>`;
-        }
-        return `<img src="${url}" alt="${item.title}" loading="lazy">`;
-      }).join('');
+/* ── JSON LOADER ── */
+async function j(path){try{const r=await fetch(path);if(!r.ok)throw 0;return r.json();}catch{return null;}}
 
-      return `
-        <div class="gallery-item reveal" id="gal-${idx}" data-current="0" data-total="${mediaList.length}">
-          <div class="gallery-media-wrap" 
-               ontouchstart="handleTouchStart(event)" 
-               ontouchend="handleTouchEnd(event, ${idx})">
-            ${isMulti ? `
-              <button class="slider-nav prev-btn" onclick="moveSlider(${idx}, -1)">❮</button>
-              <button class="slider-nav next-btn" onclick="moveSlider(${idx}, 1)">❯</button>
-            ` : ''}
-            <div class="slider-container" id="slide-cont-${idx}">${mediaHTML}</div>
-            ${isMulti ? `<div class="slider-dots">${mediaList.map((_, i) => `<div class="dot ${i===0?'active':''}"></div>`).join('')}</div>` : ''}
-          </div>
-          <div class="gallery-item-body">
-            <div style="color:var(--gold); font-size:10px; margin-bottom:5px;">${item.date || ''}</div>
-            <h3 class="gallery-item-title">${item.title}</h3>
-            <p class="gallery-item-desc">${item.desc || ''}</p>
-          </div>
-        </div>
-      `;
+async function loadData(){
+  const [studio,services,gallery]=await Promise.all([j('studio-info.json'),j('services.json'),j('gallery.json')]);
+
+  if(studio){
+    waNumber=studio.whatsapp||'';
+    const num=waNumber.replace(/\D/g,'');
+    const waBase=`https://wa.me/${num}`;
+    if(studio.tagline) document.getElementById('hero-tagline').textContent=studio.tagline;
+    if(studio.description) document.getElementById('about-body').textContent=studio.description;
+    if(studio.location) document.getElementById('footer-location').textContent=studio.location;
+    document.getElementById('hero-wa-btn').href=waBase;
+    document.getElementById('floatingWa').href=waBase;
+
+    const statsData=studio.stats||[{num:'500+',label:'Sessions'},{num:'200+',label:'Clients'}];
+    document.getElementById('about-stats').innerHTML=statsData.map(s=>`
+      <div class="stat-card reveal"><div class="stat-num">${s.num}</div><div class="stat-label">${s.label}</div></div>`).join('');
+
+    document.getElementById('contact-details').innerHTML=`
+      ${studio.location?`<div class="contact-item"><div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div><div><div class="contact-item-label">Location</div><div class="contact-item-value">${studio.location}</div></div></div>`:''}
+      <div class="contact-item"><div class="contact-icon"><i class="fab fa-whatsapp"></i></div><div><div class="contact-item-label">WhatsApp</div><div class="contact-item-value"><a href="${waBase}" target="_blank">${studio.whatsapp}</a></div></div></div>
+    `;
+    buildWaLink();
+  }
+
+  if(services&&services.length){
+    const grid=document.getElementById('services-grid');
+    const sel=document.getElementById('cf-service');
+    const num=waNumber.replace(/\D/g,'');
+    grid.innerHTML=services.map((s,i)=>{
+      const n=String(i+1).padStart(2,'0');
+      let media='';
+      if(s.video) media=`<div class="service-media-wrap visible"><iframe src="${s.video}"></iframe></div>`;
+      else if(s.image) media=`<div class="service-media-wrap visible"><img src="${s.image}" alt="${s.title}"/></div>`;
+      return `<div class="service-card reveal reveal-delay-${(i%3)+1}">${media}<div class="service-num">${n}</div><div class="service-icon-wrap">${s.icon||'📸'}</div><div class="service-name">${s.title}</div><p class="service-desc">${s.desc}</p><a class="btn-wa-service" href="https://wa.me/${num}?text=${encodeURIComponent(s.message||s.title)}" target="_blank"><i class="fab fa-whatsapp"></i>&nbsp; Book Now</a></div>`;
     }).join('');
+    services.forEach(s=>{const o=document.createElement('option'); o.value=s.title; o.textContent=s.title; sel.appendChild(o);});
+  }
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  /* ── MODIFIED GALLERY LOADER ── */
+  if(gallery&&gallery.length){
+    document.getElementById('gallery-grid').innerHTML=gallery.map(item=>{
+      let media;
+      if(item.type==='video'&&item.url){
+        media=`<iframe src="${item.url}" allowfullscreen loading="lazy"></iframe>`;
+      } else {
+        media=`<img src="${item.url || 'https://via.placeholder.com/600'}" alt="${item.title}" loading="lazy"/>`;
+      }
+      return `
+        <div class="gallery-item reveal">
+          <div class="gallery-media-wrap">
+            ${media}
+            <div class="gallery-overlay">
+              <div class="gallery-item-category">${item.category || 'Visual Art'}</div>
+              <div class="gallery-item-title">${item.title}</div>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+  }
 
-  } catch (e) { console.error("Gallery Error:", e); }
+  watchAll();
 }
 
-window.addEventListener('scroll', () => {
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
-});
-
-loadGallery();
+loadData();
 </script>
 </body>
 </html>
-
