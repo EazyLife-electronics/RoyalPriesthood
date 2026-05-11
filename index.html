@@ -1,134 +1,570 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Royal Priest Studios | Portfolio & Booking</title>
-    <style>
-        :root { --gold: #D4AF37; --dark: #050505; --green: #25D366; --glass: rgba(255,255,255,0.05); }
-        * { box-sizing: border-box; transition: all 0.3s ease; }
-        body { background: var(--dark); color: white; font-family: 'Inter', sans-serif; margin: 0; scroll-behavior: smooth; }
-        
-        /* Floating WhatsApp */
-        .wa-float { position: fixed; bottom: 25px; right: 25px; background: var(--green); color: white; padding: 15px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.5); display: flex; align-items: center; gap: 10px; }
-        .wa-float:hover { transform: scale(1.1); }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Royal Priesthood Studio | Ibadan</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+<style>
+  :root {
+    --gold:#C9A84C; --gold-light:#E8C97A; --gold-pale:#F5E6B8;
+    --black:#060606; --deep:#0D0A06; --charcoal:#1A1510; --mid:#2A2118;
+    --text:#D4C09A; --muted:#7A6A4A;
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--black);color:var(--text);font-family:'Cormorant Garamond',serif;overflow-x:hidden;cursor:none;}
 
-        header { padding: 80px 20px; text-align: center; background: linear-gradient(to bottom, #111, var(--dark)); }
-        section { padding: 60px 5%; }
-        h2 { color: var(--gold); font-size: 2rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 40px; border-bottom: 1px solid var(--gold); display: inline-block; }
+  /* CURSOR */
+  .cursor{position:fixed;width:12px;height:12px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:difference;}
+  .cursor-ring{position:fixed;width:36px;height:36px;border:1px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;transition:width .2s,height .2s,opacity .3s;}
+  .cursor.expand{width:20px;height:20px;}.cursor-ring.expand{width:60px;height:60px;opacity:.2;}
 
-        /* Gallery Grid */
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
-        .gallery-item { height: 300px; background-size: cover; background-position: center; border-radius: 8px; cursor: pointer; border: 1px solid #222; }
-        .gallery-item:hover { filter: brightness(1.2); border-color: var(--gold); }
+  /* NOISE */
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:.35;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");}
 
-        /* Video Grid */
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
-        .video-card iframe { width: 100%; height: 220px; border-radius: 12px; border: 1px solid #333; }
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:24px 60px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(6,6,6,.95),transparent);transition:background .4s;}
+  nav.scrolled{background:rgba(6,6,6,.97);border-bottom:1px solid rgba(201,168,76,.15);}
+  .nav-logo{font-family:'Cinzel Decorative',cursive;font-size:13px;font-weight:700;color:var(--gold);letter-spacing:.15em;text-decoration:none;text-transform:uppercase;line-height:1.3;}
+  .nav-logo span{display:block;font-size:9px;font-weight:400;color:var(--muted);letter-spacing:.4em;}
+  .nav-links{display:flex;gap:40px;list-style:none;}
+  .nav-links a{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s;position:relative;}
+  .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .3s;}
+  .nav-links a:hover{color:var(--gold-light);}.nav-links a:hover::after{transform:scaleX(1);}
+  .nav-cta{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:10px 24px;text-decoration:none;transition:background .3s;}
+  .nav-cta:hover{background:var(--gold-light);}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+  .hamburger span{display:block;width:24px;height:1px;background:var(--gold);transition:all .3s;}
 
-        /* Services */
-        .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .card { background: var(--glass); border-radius: 20px; border: 1px solid #222; overflow: hidden; }
-        .card-img { height: 250px; background-size: cover; background-position: center; }
-        .card-body { padding: 25px; }
-        .cta-wa { display: block; background: var(--green); color: white; text-align: center; padding: 15px; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 20px; }
+  /* MOBILE MENU */
+  .mobile-menu{display:none;position:fixed;inset:0;background:rgba(6,6,6,.98);z-index:400;flex-direction:column;align-items:center;justify-content:center;gap:40px;}
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{font-family:'Cinzel',serif;font-size:18px;letter-spacing:.3em;text-transform:uppercase;color:var(--text);text-decoration:none;transition:color .3s;}
+  .mobile-menu a:hover{color:var(--gold);}
 
-        /* Lightbox */
-        #lightbox { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); text-align: center; }
-        #lightbox img { max-height: 80%; max-width: 90%; margin-top: 5%; border: 2px solid var(--gold); }
+  /* HERO */
+  #hero{height:100vh;min-height:700px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(201,168,76,.08),transparent 60%),radial-gradient(ellipse 40% 40% at 80% 70%,rgba(201,168,76,.04),transparent 50%),linear-gradient(160deg,#0D0A06,#060606 50%,#100C07);}
+  .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.04) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,black,transparent);}
+  .hero-float{position:absolute;opacity:.12;border:1px solid rgba(201,168,76,.2);}
+  .hero-float-1{width:220px;height:300px;top:15%;left:5%;background:linear-gradient(135deg,#1a1510,#2a2118);animation:floatA 8s ease-in-out infinite;}
+  .hero-float-2{width:180px;height:240px;bottom:15%;right:6%;background:linear-gradient(135deg,#2a2118,#1a1510);animation:floatB 10s ease-in-out infinite;}
+  @keyframes floatA{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-20px) rotate(-1deg)}}
+  @keyframes floatB{0%,100%{transform:translateY(0) rotate(2deg)}50%{transform:translateY(-15px) rotate(1deg)}}
+  .hero-content{position:relative;z-index:2;text-align:center;padding:0 20px;animation:heroReveal 1.4s cubic-bezier(.16,1,.3,1) forwards;}
+  @keyframes heroReveal{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+  .hero-eyebrow{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;opacity:0;animation:fadeUp .8s .3s forwards;}
+  .hero-title{font-family:'Cinzel Decorative',cursive;font-size:clamp(40px,7vw,96px);font-weight:900;line-height:1;color:#fff;text-shadow:0 0 80px rgba(201,168,76,.2);margin-bottom:12px;opacity:0;animation:fadeUp .8s .5s forwards;}
+  .hero-title .gold{color:var(--gold);}
+  .hero-subtitle{font-family:'Cinzel Decorative',cursive;font-size:clamp(18px,3vw,38px);font-weight:400;color:var(--gold-light);letter-spacing:.1em;margin-bottom:32px;opacity:0;animation:fadeUp .8s .7s forwards;}
+  .hero-divider{width:120px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:0 auto 32px;opacity:0;animation:fadeUp .8s .9s forwards;}
+  .hero-tagline{font-family:'Cormorant Garamond',serif;font-size:clamp(15px,2vw,20px);font-style:italic;color:var(--muted);letter-spacing:.05em;margin-bottom:52px;opacity:0;animation:fadeUp .8s 1.0s forwards;}
+  .hero-buttons{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp .8s 1.2s forwards;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .btn-primary{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:16px 40px;text-decoration:none;transition:background .3s;position:relative;overflow:hidden;}
+  .btn-primary::before{content:'';position:absolute;inset:0;background:var(--gold-light);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+  .btn-primary:hover::before{transform:scaleX(1);}
+  .btn-primary span{position:relative;z-index:1;}
+  .btn-outline{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:16px 40px;text-decoration:none;transition:background .3s;}
+  .btn-outline:hover{background:rgba(201,168,76,.08);}
+  .hero-scroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeUp .8s 1.6s forwards;}
+  .hero-scroll span{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--muted);}
+  .scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s ease-in-out infinite;}
+  @keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:1}}
 
-        .nav-links { margin-top: 20px; }
-        .nav-links a { color: #888; text-decoration: none; margin: 0 15px; font-size: 14px; }
-        .nav-links a:hover { color: var(--gold); }
-    </style>
+  /* SHARED */
+  section{position:relative;}
+  .gold-divider{width:100%;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);opacity:.3;}
+  .section-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:16px;}
+  .section-label::before{content:'';display:block;width:40px;height:1px;background:var(--gold);}
+  .section-title{font-family:'Cinzel Decorative',cursive;font-size:clamp(28px,4vw,52px);font-weight:700;color:#fff;line-height:1.2;margin-bottom:24px;}
+  .section-title .gold{color:var(--gold);}
+  .section-body{font-size:clamp(16px,1.5vw,20px);line-height:1.8;color:var(--muted);font-weight:300;}
+
+  /* ABOUT */
+  #about{padding:140px 60px;background:var(--deep);}
+  .about-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;}
+  .about-visual{position:relative;height:560px;}
+  .about-frame-1{position:absolute;inset:0;border:1px solid rgba(201,168,76,.25);background:linear-gradient(135deg,var(--charcoal),var(--mid));display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .about-frame-inner{width:80%;height:80%;border:1px solid rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+  .about-icon{font-size:64px;opacity:.3;}
+  .about-placeholder-text{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.4em;color:var(--muted);text-transform:uppercase;}
+  .about-corner{position:absolute;width:60px;height:60px;}
+  .about-corner.tl{top:-12px;left:-12px;border-top:2px solid var(--gold);border-left:2px solid var(--gold);}
+  .about-corner.br{bottom:-12px;right:-12px;border-bottom:2px solid var(--gold);border-right:2px solid var(--gold);}
+  .about-badge{position:absolute;bottom:-24px;right:-24px;width:130px;height:130px;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;z-index:2;}
+  .about-badge-num{font-family:'Cinzel Decorative',cursive;font-size:36px;font-weight:900;color:var(--black);line-height:1;}
+  .about-badge-text{font-family:'Cinzel',serif;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.7);text-align:center;padding:0 8px;}
+  .about-text{padding-left:20px;}
+  .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px;}
+  .stat-card{border-left:2px solid var(--gold);padding:16px 20px;background:rgba(201,168,76,.03);}
+  .stat-num{font-family:'Cinzel Decorative',cursive;font-size:32px;font-weight:700;color:var(--gold);line-height:1;}
+  .stat-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-top:6px;}
+
+  /* SERVICES */
+  #services{padding:140px 60px;background:var(--black);}
+  .services-inner{max-width:1200px;margin:0 auto;}
+  .services-header{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-bottom:80px;align-items:end;}
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+  .service-card{background:var(--charcoal);padding:48px 36px;position:relative;overflow:hidden;transition:background .4s;}
+  .service-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+  .service-card:hover{background:var(--mid);}.service-card:hover::before{transform:scaleX(1);}
+  .service-media-wrap{width:100%;margin-bottom:24px;display:none;}
+  .service-media-wrap.visible{display:block;}
+  .service-media-wrap img{width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid rgba(201,168,76,.1);}
+  .service-media-wrap iframe{width:100%;aspect-ratio:16/9;border:none;}
+  .service-num{font-family:'Cinzel Decorative',cursive;font-size:11px;color:rgba(201,168,76,.3);letter-spacing:.2em;margin-bottom:28px;}
+  .service-icon-wrap{width:64px;height:64px;border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;margin-bottom:24px;font-size:28px;transition:border-color .3s,background .3s;}
+  .service-card:hover .service-icon-wrap{border-color:var(--gold);background:rgba(201,168,76,.08);}
+  .service-name{font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:.08em;color:#fff;margin-bottom:10px;text-transform:uppercase;}
+  .service-desc{font-size:15px;line-height:1.7;color:var(--muted);font-weight:300;margin-bottom:14px;}
+  .service-price{font-family:'Cinzel',serif;font-size:14px;color:var(--gold);margin-bottom:24px;}
+  .btn-wa-service{display:flex;align-items:center;justify-content:center;gap:10px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;background:rgba(37,211,102,.1);color:#25D366;border:1px solid rgba(37,211,102,.25);padding:14px 20px;text-decoration:none;transition:background .3s,border-color .3s;width:100%;}
+  .btn-wa-service:hover{background:rgba(37,211,102,.2);border-color:#25D366;}
+
+  /* GALLERY */
+  #gallery{padding:140px 60px;background:var(--deep);}
+  .gallery-inner{max-width:1300px;margin:0 auto;}
+  .gallery-header{text-align:center;margin-bottom:80px;}
+  .gallery-header .section-label{justify-content:center;}
+  .gallery-header .section-label::before{display:none;}
+  .gallery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:4px;}
+  .gallery-item{background:var(--charcoal);overflow:hidden;transition:background .3s;}
+  .gallery-item:hover{background:var(--mid);}
+  .gallery-media-wrap{width:100%;aspect-ratio:16/9;overflow:hidden;position:relative;background:var(--mid);display:flex;align-items:center;justify-content:center;}
+  .gallery-media-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
+  .gallery-item:hover .gallery-media-wrap img{transform:scale(1.05);}
+  .gallery-media-wrap iframe{width:100%;height:100%;border:none;}
+  .gallery-placeholder{font-size:52px;opacity:.12;}
+  .gallery-item-body{padding:28px 32px;}
+  .gallery-item-date{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+  .gallery-item-title{font-family:'Cinzel',serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:10px;}
+  .gallery-item-desc{font-size:15px;line-height:1.7;color:var(--muted);font-weight:300;}
+  .gallery-cta{text-align:center;margin-top:60px;}
+
+  /* CONTACT */
+  #contact{padding:140px 60px;background:var(--black);}
+  .contact-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:start;}
+  .contact-details{display:flex;flex-direction:column;gap:32px;margin-top:40px;}
+  .contact-item{display:flex;gap:20px;align-items:flex-start;}
+  .contact-icon{width:48px;height:48px;border:1px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;color:var(--gold);}
+  .contact-item-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
+  .contact-item-value{font-size:16px;color:var(--text);}
+  .contact-item-value a{color:var(--text);text-decoration:none;}
+  .contact-form{display:flex;flex-direction:column;gap:24px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .form-group{display:flex;flex-direction:column;gap:8px;}
+  .form-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);}
+  .form-control{background:var(--charcoal);border:1px solid rgba(201,168,76,.15);padding:16px 20px;color:var(--text);font-family:'Cormorant Garamond',serif;font-size:16px;outline:none;transition:border-color .3s,background .3s;resize:none;width:100%;}
+  .form-control:focus{border-color:var(--gold);background:rgba(201,168,76,.03);}
+  .form-control::placeholder{color:rgba(122,106,74,.5);}
+  .btn-wa-main{display:flex;align-items:center;justify-content:center;gap:12px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.25em;text-transform:uppercase;background:#25D366;color:#fff;padding:18px 48px;text-decoration:none;transition:background .3s,transform .2s;width:100%;}
+  .btn-wa-main:hover{background:#1ebe5d;transform:translateY(-2px);}
+  .btn-wa-main i{font-size:22px;}
+  .wa-note{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:12px;}
+
+  /* FLOATING WHATSAPP */
+  .floating-wa{position:fixed;bottom:28px;right:28px;z-index:600;width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;text-decoration:none;box-shadow:0 8px 32px rgba(37,211,102,.35);transition:transform .3s,box-shadow .3s;animation:waPulse 3s ease-in-out infinite;}
+  .floating-wa:hover{transform:scale(1.1);box-shadow:0 12px 40px rgba(37,211,102,.5);}
+  @keyframes waPulse{0%,100%{box-shadow:0 8px 32px rgba(37,211,102,.35),0 0 0 0 rgba(37,211,102,.25)}50%{box-shadow:0 8px 32px rgba(37,211,102,.35),0 0 0 12px rgba(37,211,102,0)}}
+
+  /* FOOTER */
+  footer{padding:60px;background:var(--deep);border-top:1px solid rgba(201,168,76,.1);}
+  .footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;}
+  .footer-logo{font-family:'Cinzel Decorative',cursive;font-size:14px;color:var(--gold);letter-spacing:.1em;}
+  .footer-logo span{display:block;font-size:9px;color:var(--muted);letter-spacing:.3em;margin-top:4px;font-family:'Cinzel',serif;}
+  .footer-links{display:flex;gap:32px;list-style:none;}
+  .footer-links a{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s;}
+  .footer-links a:hover{color:var(--gold);}
+  .footer-copy{font-size:13px;color:rgba(122,106,74,.5);}
+
+  /* REVEAL */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  .reveal-delay-1{transition-delay:.1s;}.reveal-delay-2{transition-delay:.2s;}.reveal-delay-3{transition-delay:.3s;}.reveal-delay-4{transition-delay:.4s;}
+
+  /* MOBILE */
+  @media(max-width:900px){
+    nav{padding:20px 24px;}
+    .nav-links,.nav-cta{display:none;}
+    .hamburger{display:flex;}
+    #hero{height:auto;padding:140px 24px 100px;}
+    .hero-float{display:none;}
+    #about,#services,#gallery,#contact{padding:80px 24px;}
+    .about-inner,.contact-inner{grid-template-columns:1fr;gap:60px;}
+    .about-visual{height:300px;}
+    .about-text{padding-left:0;}
+    .services-header{grid-template-columns:1fr;gap:20px;}
+    .services-grid{grid-template-columns:1fr;}
+    .gallery-grid{grid-template-columns:1fr;}
+    .form-row{grid-template-columns:1fr;}
+    footer{padding:40px 24px;}
+    .footer-inner{flex-direction:column;align-items:flex-start;}
+  }
+</style>
 </head>
 <body>
 
-    <a href="#" id="wa-master" class="wa-float" target="_blank">Chat with Philip</a>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
-    <header>
-        <h1 style="font-size: 3rem; margin:0;">ROYAL PRIEST <span style="color:var(--gold)">STUDIOS</span></h1>
-        <p style="color:#888; letter-spacing: 4px;">CREATIVE COLLECTIVE • IBADAN</p>
-        <div class="nav-links">
-            <a href="#gallery">GALLERY</a>
-            <a href="#videos">VIDEOS</a>
-            <a href="#services">SERVICES</a>
+<!-- Floating WhatsApp -->
+<a class="floating-wa" id="floatingWa" href="#" target="_blank" title="Chat on WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#hero"     onclick="closeMobile()">Home</a>
+  <a href="#about"    onclick="closeMobile()">About</a>
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#gallery"  onclick="closeMobile()">Gallery</a>
+  <a href="#contact"  onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo" href="#hero">Royal Priesthood<span>Studio · Ibadan</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Book a Session</a>
+  <div class="hamburger" id="hamburger" onclick="toggleMobile()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-float hero-float-1"></div>
+  <div class="hero-float hero-float-2"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Photography &amp; Videography · Ibadan</div>
+    <h1 class="hero-title">Royal<br/><span class="gold">Priesthood</span></h1>
+    <div class="hero-subtitle">Studio</div>
+    <div class="hero-divider"></div>
+    <p class="hero-tagline" id="hero-tagline">Capturing moments. Telling sacred stories. Framing eternity.</p>
+    <div class="hero-buttons">
+      <a class="btn-primary" href="#gallery"><span>View Our Work</span></a>
+      <a class="btn-outline" id="hero-wa-btn" href="#" target="_blank">
+        <i class="fab fa-whatsapp" style="margin-right:8px;"></i>Book via WhatsApp
+      </a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span><div class="scroll-line"></div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-visual reveal">
+      <div class="about-frame-1">
+        <div class="about-frame-inner">
+          <div class="about-icon">📷</div>
+          <div class="about-placeholder-text">Your Images Here</div>
         </div>
-    </header>
+      </div>
+      <div class="about-corner tl"></div>
+      <div class="about-corner br"></div>
+      <div class="about-badge">
+        <div class="about-badge-num">5+</div>
+        <div class="about-badge-text">Years of Excellence</div>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="section-label reveal">About Us</div>
+      <h2 class="section-title reveal reveal-delay-1">We Capture What<br/><span class="gold">Heaven Sees</span></h2>
+      <p class="section-body reveal reveal-delay-2" id="about-body">
+        Royal Priesthood Studio is more than a photography and videography company — we are storytellers, historians, and artists who believe every moment deserves to be preserved with excellence and intention. From intimate portraits to grand productions, we bring a regal touch to every frame.
+      </p>
+      <div class="about-stats" id="about-stats"></div>
+    </div>
+  </div>
+</section>
 
-    <section id="gallery">
-        <h2>Photo Gallery</h2>
-        <div id="photo-list" class="gallery-grid"></div>
-    </section>
+<div class="gold-divider"></div>
 
-    <section id="videos" style="background: #080808;">
-        <h2>Cinema & Music Videos</h2>
-        <div id="video-list" class="video-grid"></div>
-    </section>
+<!-- ═══ SERVICES ═══ -->
+<section id="services">
+  <div class="services-inner">
+    <div class="services-header">
+      <div>
+        <div class="section-label reveal">What We Offer</div>
+        <h2 class="section-title reveal reveal-delay-1">Our<br/><span class="gold">Services</span></h2>
+      </div>
+      <p class="reveal reveal-delay-2" style="color:var(--muted);font-size:18px;line-height:1.8;font-style:italic;">
+        Every service is crafted with intention, executed with excellence, and delivered with a royal standard.
+      </p>
+    </div>
+    <div class="services-grid" id="services-grid">
+      <!-- Populated by JS from services.json -->
+    </div>
+  </div>
+</section>
 
-    <section id="services">
-        <h2>Packages & Rates</h2>
-        <div id="service-list" class="service-grid"></div>
-    </section>
+<div class="gold-divider"></div>
 
-    <div id="lightbox" onclick="this.style.display='none'">
-        <img id="lightbox-img" src="">
-        <p style="color:white; margin-top:10px;">Click anywhere to close</p>
+<!-- ═══ GALLERY ═══ -->
+<section id="gallery">
+  <div class="gallery-inner">
+    <div class="gallery-header">
+      <div class="section-label reveal">Recent Works &amp; Moments</div>
+      <h2 class="section-title reveal reveal-delay-1">The <span class="gold">Portfolio</span></h2>
+      <p class="section-body reveal reveal-delay-2" style="margin-top:12px;">Proof of excellence from Royal Priesthood Studio</p>
+    </div>
+    <div class="gallery-grid reveal" id="gallery-grid">
+      <!-- Populated by JS from gallery.json -->
+    </div>
+    <div class="gallery-cta reveal reveal-delay-1">
+      <a href="gallery.html" class="btn-outline">View Full Gallery →</a>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-info">
+      <div class="section-label reveal">Get In Touch</div>
+      <h2 class="section-title reveal reveal-delay-1">Let's Create<br/><span class="gold">Magic Together</span></h2>
+      <p class="section-body reveal reveal-delay-2">
+        Ready to preserve your story with excellence? Reach out — your message will open directly in WhatsApp.
+      </p>
+      <div class="contact-details reveal reveal-delay-3" id="contact-details">
+        <!-- Populated by JS -->
+      </div>
     </div>
 
-    <script>
-        async function loadContent() {
-            const response = await fetch('royal_priest_studio.json');
-            const data = await response.json();
+    <!-- WhatsApp Form -->
+    <div class="reveal reveal-delay-2">
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-control" id="cf-fname" placeholder="John"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="cf-lname" placeholder="Doe"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <input type="tel" class="form-control" id="cf-phone" placeholder="+234 000 000 0000"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Service Needed</label>
+          <select class="form-control" id="cf-service">
+            <option value="">Select a service...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Your Message</label>
+          <textarea class="form-control" id="cf-message" rows="5" placeholder="Tell us about your project or event..."></textarea>
+        </div>
+        <a class="btn-wa-main" id="btn-wa-contact" href="#" target="_blank">
+          <i class="fab fa-whatsapp"></i>
+          <span>Send via WhatsApp</span>
+        </a>
+        <p class="wa-note">Tap to open WhatsApp — your message is pre-filled</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-            // WhatsApp Global Link
-            document.getElementById('wa-master').href = `https://wa.me/${data.studio_info.whatsapp_number}?text=Hello Philip, I saw your portfolio and I'd like to inquire about a session.`;
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      Royal Priesthood Studio
+      <span>Photography &amp; Videography · <span id="footer-location">Ibadan, Oyo State</span></span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="footer-copy">© 2026 Royal Priesthood Studio. All rights reserved.</div>
+  </div>
+</footer>
 
-            // 1. Render Gallery
-            const photoList = document.getElementById('photo-list');
-            data.gallery.forEach(img => {
-                const div = document.createElement('div');
-                div.className = 'gallery-item';
-                div.style.backgroundImage = `url('${img.url}')`;
-                div.onclick = () => {
-                    document.getElementById('lightbox-img').src = img.url;
-                    document.getElementById('lightbox').style.display = 'block';
-                };
-                photoList.appendChild(div);
-            });
+<script>
+/* ── CURSOR ── */
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+(function tick(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick);})();
+document.addEventListener('mouseover',e=>{
+  const over=e.target.closest('a,button,.service-card,.gallery-item');
+  cursor.classList.toggle('expand',!!over); ring.classList.toggle('expand',!!over);
+});
 
-            // 2. Render Videos
-            const videoList = document.getElementById('video-list');
-            data.videos.forEach(v => {
-                videoList.innerHTML += `
-                    <div class="video-card">
-                        <iframe src="https://www.youtube.com/embed/${v.youtube_id}" frameborder="0" allowfullscreen></iframe>
-                        <h4 style="margin:15px 0 5px">${v.title}</h4>
-                        <p style="color:#666; font-size:14px">${v.category}</p>
-                    </div>
-                `;
-            });
+/* ── NAV ── */
+const navbar=document.getElementById('navbar');
+window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',scrollY>60));
 
-            // 3. Render Services
-            const serviceList = document.getElementById('service-list');
-            data.service_categories.forEach(cat => {
-                cat.packages.forEach(pkg => {
-                    const waLink = `https://wa.me/${data.studio_info.whatsapp_number}?text=I am interested in the ${pkg.name} package.`;
-                    serviceList.innerHTML += `
-                        <div class="card">
-                            <div class="card-img" style="background-image:url('${pkg.image}')"></div>
-                            <div class="card-body">
-                                <h3>${pkg.name}</h3>
-                                <p style="font-size:1.8rem; font-weight:bold; color:var(--gold)">₦${pkg.price.toLocaleString()}</p>
-                                <p style="color:#aaa; font-size:14px; min-height:60px;">${pkg.description}</p>
-                                <a href="${waLink}" class="cta-wa" target="_blank">Book via WhatsApp</a>
-                            </div>
-                        </div>
-                    `;
-                });
-            });
-        }
-        loadContent();
-    </script>
+/* ── MOBILE ── */
+function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open');}
+function closeMobile(){document.getElementById('mobileMenu').classList.remove('open');}
+
+/* ── REVEAL ── */
+const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}}),{threshold:.1});
+function watchAll(){document.querySelectorAll('.reveal').forEach(el=>io.observe(el));}
+watchAll();
+
+/* ── WHATSAPP FORM BUILDER ── */
+let waNumber='';
+function buildWaLink(){
+  const fname=document.getElementById('cf-fname').value.trim();
+  const lname=document.getElementById('cf-lname').value.trim();
+  const phone=document.getElementById('cf-phone').value.trim();
+  const service=document.getElementById('cf-service').value;
+  const msg=document.getElementById('cf-message').value.trim();
+  const name=[fname,lname].filter(Boolean).join(' ')||'A client';
+  let text=`Hello Royal Priesthood Studio! 👋\n\nMy name is *${name}*.`;
+  if(phone)   text+=`\n📞 Phone: ${phone}`;
+  if(service) text+=`\n📷 Service: ${service}`;
+  if(msg)     text+=`\n\n💬 ${msg}`;
+  const num=waNumber.replace(/\D/g,'');
+  document.getElementById('btn-wa-contact').href=`https://wa.me/${num}?text=${encodeURIComponent(text)}`;
+}
+['cf-fname','cf-lname','cf-phone','cf-service','cf-message'].forEach(id=>{
+  const el=document.getElementById(id); if(el) el.addEventListener('input',buildWaLink);
+});
+
+/* ── JSON LOADER ── */
+async function j(path){try{const r=await fetch(path);if(!r.ok)throw 0;return r.json();}catch{return null;}}
+
+async function loadData(){
+  const [studio,services,gallery]=await Promise.all([j('studio-info.json'),j('services.json'),j('gallery.json')]);
+
+  /* STUDIO */
+  if(studio){
+    waNumber=studio.whatsapp||'';
+    const num=waNumber.replace(/\D/g,'');
+    const waBase=`https://wa.me/${num}`;
+
+    if(studio.tagline) document.getElementById('hero-tagline').textContent=studio.tagline;
+    if(studio.description) document.getElementById('about-body').textContent=studio.description;
+    if(studio.location) document.getElementById('footer-location').textContent=studio.location;
+
+    // Hero WA button
+    document.getElementById('hero-wa-btn').href=waBase;
+    // Floating WA
+    document.getElementById('floatingWa').href=waBase;
+
+    // Stats
+    const statsData=studio.stats||[
+      {num:'500+',label:'Sessions Done'},{num:'200+',label:'Happy Clients'},
+      {num:'50+',label:'Events Covered'},{num:'100%',label:'Satisfaction Rate'}
+    ];
+    document.getElementById('about-stats').innerHTML=statsData.map(s=>`
+      <div class="stat-card reveal">
+        <div class="stat-num">${s.num}</div>
+        <div class="stat-label">${s.label}</div>
+      </div>`).join('');
+
+    // Contact details
+    document.getElementById('contact-details').innerHTML=`
+      ${studio.location?`<div class="contact-item">
+        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <div><div class="contact-item-label">Location</div><div class="contact-item-value">${studio.location}</div></div>
+      </div>`:''}
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+        <div><div class="contact-item-label">WhatsApp</div>
+          <div class="contact-item-value"><a href="${waBase}" target="_blank">${studio.whatsapp}</a></div>
+        </div>
+      </div>
+      ${studio.email?`<div class="contact-item">
+        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+        <div><div class="contact-item-label">Email</div>
+          <div class="contact-item-value"><a href="mailto:${studio.email}">${studio.email}</a></div>
+        </div>
+      </div>`:''}
+      ${studio.instagram?`<div class="contact-item">
+        <div class="contact-icon"><i class="fab fa-instagram"></i></div>
+        <div><div class="contact-item-label">Instagram</div><div class="contact-item-value">${studio.instagram}</div></div>
+      </div>`:''}
+    `;
+    buildWaLink();
+  }
+
+  /* SERVICES */
+  if(services&&services.length){
+    const grid=document.getElementById('services-grid');
+    const sel=document.getElementById('cf-service');
+    const num=waNumber.replace(/\D/g,'');
+
+    grid.innerHTML=services.map((s,i)=>{
+      const n=String(i+1).padStart(2,'0');
+      let mediaHTML='';
+      if(s.video){
+        mediaHTML=`<div class="service-media-wrap visible"><iframe src="${s.video}" allowfullscreen loading="lazy"></iframe></div>`;
+      } else if(s.image){
+        mediaHTML=`<div class="service-media-wrap visible"><img src="${s.image}" alt="${s.title}" loading="lazy"/></div>`;
+      }
+      const msg=encodeURIComponent(s.message||`Hello, I'd like to book: ${s.title}`);
+      return `<div class="service-card reveal reveal-delay-${(i%3)+1}">
+        ${mediaHTML}
+        <div class="service-num">${n}</div>
+        <div class="service-icon-wrap">${s.icon||'📸'}</div>
+        <div class="service-name">${s.title}</div>
+        <p class="service-desc">${s.desc}</p>
+        ${s.price?`<div class="service-price">${s.price}</div>`:''}
+        <a class="btn-wa-service" href="https://wa.me/${num}?text=${msg}" target="_blank">
+          <i class="fab fa-whatsapp"></i>&nbsp; Book This Service
+        </a>
+      </div>`;
+    }).join('');
+
+    services.forEach(s=>{
+      const o=document.createElement('option');
+      o.value=s.title; o.textContent=s.title; sel.appendChild(o);
+    });
+  }
+
+  /* GALLERY */
+  if(gallery&&gallery.length){
+    document.getElementById('gallery-grid').innerHTML=gallery.map(item=>{
+      let media;
+      if(item.type==='video'&&item.url){
+        media=`<iframe src="${item.url}" allowfullscreen loading="lazy"></iframe>`;
+      } else if(item.url){
+        media=`<img src="${item.url}" alt="${item.title}" loading="lazy"/>`;
+      } else {
+        media=`<div class="gallery-placeholder">🎞️</div>`;
+      }
+      return `<div class="gallery-item">
+        <div class="gallery-media-wrap">${media}</div>
+        <div class="gallery-item-body">
+          <div class="gallery-item-date">${item.date||''}</div>
+          <div class="gallery-item-title">${item.title}</div>
+          <p class="gallery-item-desc">${item.desc||''}</p>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  watchAll(); // re-observe dynamically added elements
+}
+
+loadData();
+</script>
 </body>
 </html>
