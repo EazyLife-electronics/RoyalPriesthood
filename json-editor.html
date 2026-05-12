@@ -370,10 +370,31 @@ function createStudioForm() {
   const body = document.createElement('div');
   body.className = 'editor-column';
 
-  const fields = ['name', 'tagline', 'description', 'location', 'whatsapp', 'email', 'instagram'];
-  fields.forEach(key => {
-    body.appendChild(createStudioField(key, data[key] || ''));
+  const fields = [
+    { key: 'name', label: 'Business Name', type: 'text' },
+    { key: 'metaTitle', label: 'Meta Title', type: 'text' },
+    { key: 'metaDescription', label: 'Meta Description', type: 'textarea' },
+    { key: 'heroHeadline', label: 'Hero Headline', type: 'text' },
+    { key: 'heroSubheading', label: 'Hero Subheading', type: 'textarea' },
+    { key: 'tagline', label: 'Tagline', type: 'textarea' },
+    { key: 'description', label: 'Description', type: 'textarea' },
+    { key: 'location', label: 'Location', type: 'text' },
+    { key: 'address', label: 'Address', type: 'text' },
+    { key: 'website', label: 'Website', type: 'text' },
+    { key: 'whatsapp', label: 'WhatsApp', type: 'text' },
+    { key: 'email', label: 'Email', type: 'text' },
+    { key: 'businessCategory', label: 'Business Category', type: 'text' },
+    { key: 'servicesSummary', label: 'Services Summary', type: 'textarea' }
+  ];
+
+  fields.forEach(field => {
+    body.appendChild(createStudioField(field, data[field.key] || ''));
   });
+
+  body.appendChild(createStudioMediaField('logo', 'Logo URL'));
+  body.appendChild(createStudioMediaField('heroImage', 'Hero Image URL'));
+  body.appendChild(createStudioMediaField('ogImage', 'Open Graph Image URL'));
+  body.appendChild(createStudioSocialSection());
 
   const statsSection = document.createElement('fieldset');
   statsSection.className = 'field-group';
@@ -390,11 +411,46 @@ function createStudioForm() {
   return panel;
 }
 
-function createStudioField(key, value) {
+function createStudioField(field, value) {
   const wrapper = document.createElement('label');
-  wrapper.innerHTML = `${capitalize(key)}<input type="text" data-path="${key}" value="${escapeHtml(value)}" />`;
-  wrapper.querySelector('input').addEventListener('input', handleFieldUpdate);
+  if (field.type === 'textarea') {
+    wrapper.innerHTML = `${field.label}<textarea data-path="${field.key}">${escapeHtml(value)}</textarea>`;
+  } else {
+    wrapper.innerHTML = `${field.label}<input type="text" data-path="${field.key}" value="${escapeHtml(value)}" />`;
+  }
+  wrapper.querySelectorAll('input, textarea').forEach(el => el.addEventListener('input', handleFieldUpdate));
   return wrapper;
+}
+
+function createStudioMediaField(key, label) {
+  const wrapper = document.createElement('label');
+  const value = data[key] || '';
+  wrapper.innerHTML = `${label}<input type="text" data-path="${key}" value="${escapeHtml(value)}" />`;
+  wrapper.appendChild(document.createElement('div'));
+  const previewHtml = renderMediaPreview(value);
+  wrapper.querySelector('div').innerHTML = previewHtml;
+  wrapper.querySelector('input').addEventListener('input', event => {
+    handleFieldUpdate(event);
+    wrapper.querySelector('div').innerHTML = renderMediaPreview(event.target.value);
+  });
+  return wrapper;
+}
+
+function createStudioSocialSection() {
+  data.social = typeof data.social === 'object' && data.social ? data.social : {};
+  const socialSection = document.createElement('fieldset');
+  socialSection.className = 'field-group';
+  socialSection.innerHTML = `<legend>Social Profiles</legend>`;
+  const socialFields = [
+    { key: 'social.instagram', label: 'Instagram' },
+    { key: 'social.facebook', label: 'Facebook' },
+    { key: 'social.youtube', label: 'YouTube' },
+    { key: 'social.tiktok', label: 'TikTok' }
+  ];
+  socialFields.forEach(field => {
+    socialSection.appendChild(createStudioField(field, data.social[field.key.split('.')[1]] || ''));
+  });
+  return socialSection;
 }
 
 function createStudioStatEditor(stat, index) {
