@@ -1,0 +1,15 @@
+{
+  "name": "Royal Priesthood Studio",
+  "tagline": "Capturing moments. Telling sacred stories. Framing eternity.",
+  "description": "We are storytellers, historians, and artists who believe every moment deserves to be preserved with excellence and intention. From intimate portraits to grand productions, we bring a regal touch to every frame.",
+  "location": "Ibadan, Oyo State, Nigeria",
+  "whatsapp": "+2348000000000",
+  "email": "info@royalpriesthoodstudio.com",
+  "instagram": "@royalpriesthoodstudio",
+  "stats": [
+    { "num": "500+", "label": "Sessions Done" },
+    { "num": "200+", "label": "Happy Clients" },
+    { "num": "50+", "label": "Events Covered" },
+    { "num": "100%", "label": "Satisfaction Rate" }
+  ]
+}

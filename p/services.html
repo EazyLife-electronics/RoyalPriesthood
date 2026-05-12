@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Services | Royal Priesthood Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+<link rel="stylesheet" href="styles.css"/>
+
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav id="navbar">
+  <a class="nav-logo" href="index.html">Royal Priesthood<span>Studio · Ibadan</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="services.html" class="active">Services</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><button class="theme-toggle" id="themeToggle" title="Toggle theme"><i class="fas fa-moon"></i></button></li>
+  </ul>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html" onclick="closeMobile()">Home</a>
+  <a href="index.html#about" onclick="closeMobile()">About</a>
+  <a href="services.html" onclick="closeMobile()">Services</a>
+  <a href="gallery.html" onclick="closeMobile()">Gallery</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- PAGE HEADER -->
+<header class="page-header">
+  <div class="page-header-grid"></div>
+  <div class="page-header-content">
+    <div class="section-label">Our Expertise</div>
+    <h1 class="section-title">Premium <span class="gold">Services</span></h1>
+    <p class="section-body">Every frame, every moment — crafted with intention and delivered with excellence.</p>
+  </div>
+</header>
+
+<div class="gold-divider"></div>
+
+<!-- SERVICES GRID -->
+<section id="services-full">
+  <div class="services-inner">
+    <div class="services-grid" id="services-grid">
+      <!-- Populated by JS from services.json using: s.title, s.desc, s.price, s.icon, s.message -->
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- CONTACT / BOOKING -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-info">
+      <div class="section-label">Book a Session</div>
+      <h2 class="section-title">Ready to <span class="gold">Begin?</span></h2>
+      <p class="section-body">Select a service and reach out on WhatsApp. We typically respond within the hour to discuss your needs and scheduling.</p>
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+          <div>
+            <div class="contact-item-label">WhatsApp</div>
+            <div class="contact-item-value"><a href="https://wa.me/234XXXXXXXXXX" target="_blank">+234 XXX XXX XXXX</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div>
+            <div class="contact-item-label">Location</div>
+            <div class="contact-item-value">Ibadan, Oyo State, Nigeria</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form" id="contactForm">
+      <div class="form-group">
+        <label class="form-label" for="name">Full Name</label>
+        <input type="text" id="name" class="form-control" placeholder="Enter your name">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="service-select">Select Service</label>
+        <select id="service-select" class="form-control">
+          <!-- Populated from services.json -->
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="extra">Additional Notes (optional)</label>
+        <textarea id="extra" class="form-control" rows="3" placeholder="Event date, location, any special requirements…"></textarea>
+      </div>
+      <a href="#" class="btn-wa-main" id="wa-submit">
+        <i class="fab fa-whatsapp"></i> <span>Book via WhatsApp</span>
+      </a>
+      <p class="wa-note">Opens WhatsApp with your enquiry pre-filled</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Royal Priesthood</div>
+  <div class="footer-sub">Studio · Ibadan · &copy; 2025</div>
+</footer>
+
+<a class="floating-wa" href="https://wa.me/234XXXXXXXXXX" target="_blank" title="Chat on WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<script src="shared.js"></script>
+<script src="services.js"></script>
+</body>
+</html>
+
