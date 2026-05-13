@@ -90,7 +90,7 @@
 <body>
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
-<a class="floating-wa" id="floatingWa" href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<a class="floating-wa" id="floatingWa" href="https://wa.me/2347080868471" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html" onclick="closeMobile()">Home</a>
@@ -216,7 +216,7 @@ window.tE=(e,i)=>{
 function buildWa() {
   const name = document.getElementById('cf-name').value, srv = document.getElementById('cf-service').value, msg = document.getElementById('cf-message').value;
   const text = `Hello Royal Priesthood! I'm ${name}. I'm interested in ${srv}. ${msg}`;
-  document.getElementById('btn-wa-contact').href = `https://wa.me/234XXXXXXXXXX?text=${encodeURIComponent(text)}`; // Replace X with your number
+  document.getElementById('btn-wa-contact').href = `https://wa.me/2347080868471?text=${encodeURIComponent(text)}`; // Replace X with your number
 }
 document.querySelectorAll('.form-control').forEach(el => el.addEventListener('input', buildWa));
 
