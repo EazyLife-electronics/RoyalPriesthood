@@ -1,99 +1,317 @@
 [
   {
+    "id": "portrait-photography",
     "icon": "📸",
     "title": "Portrait Photography",
-    "desc": "Professional portraits that reveal character, dignity, and story — for individuals, families, and leaders.",
-    "price": "From ₦25,000",
-    "image": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=800",
-    "video": "",
-    "message": "Hello Royal Priesthood Studio, I'd like to book a Portrait Photography session."
+    "shortDescription": "Professional portraits that reveal character, dignity, and story.",
+    "longDescription": "Professional portraits tailored for individuals, families, corporate leaders, and creative portfolios. Sessions take place in our premium climate-controlled Ibadan studio or at an outdoor location of your choice, backed by state-of-the-art lighting and high-end retouching.",
+    "pricing": {
+      "baseAmount": 25000,
+      "currency": "NGN",
+      "displayPrice": "From ₦25,000",
+      "hasPromotion": false,
+      "promotionDetails": null,
+      "paymentStructure": {
+        "requiresDeposit": true,
+        "depositType": "percentage",
+        "depositValue": 50,
+        "installmentsAllowed": false,
+        "milestones": [
+          { "label": "Booking Deposit (To secure date)", "percentage": 50, "amount": 12500 },
+          { "label": "Session Completion (Before delivery)", "percentage": 50, "amount": 12500 }
+        ]
+      }
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=800"
+    ],
+    "videos": [],
+    "message": "Hello Royal Priest Studios, I'd like to book a Portrait Photography session."
   },
   {
+    "id": "event-videography",
     "icon": "🎬",
     "title": "Event Videography",
-    "desc": "Full-coverage cinematic documentation of your events — from weddings to church programs to corporate gatherings.",
-    "price": "From ₦50,000",
-    "image": "",
-    "video": "https://player.vimeo.com/external/371433846.sd.mp4?s=2315b6321533482839cfbae27310f1ee6e02613b&profile_id=164&oauth2_token_id=57447761",
-    "message": "Hello Royal Priesthood Studio, I'd like to book Event Videography coverage."
+    "shortDescription": "Full-coverage cinematic documentation of your milestone events.",
+    "longDescription": "High-definition, multicam cinematic documentation for events ranging from church programs to corporate launch events. Our packages ensure crystal clear high-fidelity ambient sound capture alongside edited event recaps.",
+    "pricing": {
+      "baseAmount": 50000,
+      "currency": "NGN",
+      "displayPrice": "From ₦50,000",
+      "hasPromotion": true,
+      "promotionDetails": {
+        "promoCode": "EARLYBIRD26",
+        "discountType": "percentage",
+        "discountValue": 10,
+        "calculatedAmount": 45000
+      },
+      "paymentStructure": {
+        "requiresDeposit": true,
+        "depositType": "fixed",
+        "depositValue": 20000,
+        "installmentsAllowed": false,
+        "milestones": [
+          { "label": "Booking Lock Deposit", "percentage": 40, "amount": 20000 },
+          { "label": "Event Day Wrap", "percentage": 60, "amount": 30000 }
+        ]
+      }
+    },
+    "images": [],
+    "videos": [
+      "https://player.vimeo.com/external/371433846.sd.mp4?s=2315b6321533482839cfbae27310f1ee6e02613b&profile_id=164&oauth2_token_id=57447761"
+    ],
+    "message": "Hello Royal Priest Studios, I'd like to book Event Videography coverage."
   },
   {
+    "id": "wedding-coverage",
     "icon": "💒",
     "title": "Wedding Coverage",
-    "desc": "Luxury wedding photography and videography that preserves every sacred detail of your special day.",
-    "price": "From ₦150,000",
-    "image": [
+    "shortDescription": "Luxury wedding photography and videography preserving every sacred detail.",
+    "longDescription": "An elite, fully-managed visual production preserving every memory from your traditional wedding to the white wedding ceremony. Includes multiple camera teams, drone aerial framing, and premium color grading.",
+    "pricing": {
+      "baseAmount": 150000,
+      "currency": "NGN",
+      "displayPrice": "From ₦150,000",
+      "hasPromotion": false,
+      "promotionDetails": null,
+      "paymentStructure": {
+        "requiresDeposit": true,
+        "depositType": "percentage",
+        "depositValue": 40,
+        "installmentsAllowed": true,
+        "milestones": [
+          { "label": "Retainer Deposit to Lock Date", "percentage": 40, "amount": 60000 },
+          { "label": "Mid-way Installment (1 week before event)", "percentage": 40, "amount": 60000 },
+          { "label": "Final Review (Prior to digital gallery delivery)", "percentage": 20, "amount": 30000 }
+        ]
+      }
+    },
+    "images": [
       "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=800",
       "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=800",
       "https://images.unsplash.com/photo-1519225495810-75123328577b?auto=format&fit=crop&q=80&w=800"
     ],
-    "video": "",
-    "message": "Hello Royal Priesthood Studio, I'd like to enquire about Wedding Coverage."
+    "videos": [],
+    "message": "Hello Royal Priest Studios, I'd like to enquire about Wedding Coverage."
   },
   {
+    "id": "ministry-media",
     "icon": "🎙️",
     "title": "Ministry Media",
-    "desc": "Dedicated media coverage for church programs, crusades, and ministry events — capturing the move of God.",
-    "price": "From ₦40,000",
-    "image": "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&q=80&w=800",
-    "video": "",
-    "message": "Hello Royal Priesthood Studio, I'd like to book Ministry Media coverage."
+    "shortDescription": "Dedicated media coverage for church programs, crusades, and ministry events.",
+    "longDescription": "We understand the flow of spiritual programs. Our team provides specialized media setups that capture the move of God seamlessly, optimizing sound feeds from soundboards and providing high-definition video archives ready for broadcast.",
+    "pricing": {
+      "baseAmount": 40000,
+      "currency": "NGN",
+      "displayPrice": "From ₦40,000",
+      "hasPromotion": true,
+      "promotionDetails": {
+        "promoCode": "KINGDOM2026",
+        "discountType": "fixed",
+        "discountValue": 5000,
+        "calculatedAmount": 35000
+      },
+      "paymentStructure": {
+        "requiresDeposit": true,
+        "depositType": "percentage",
+        "depositValue": 50,
+        "installmentsAllowed": false,
+        "milestones": [
+          { "label": "Commitment Deposit", "percentage": 50, "amount": 20000 },
+          { "label": "Post-Production Kickoff", "percentage": 50, "amount": 20000 }
+        ]
+      }
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=800"
+    ],
+    "videos": [
+      "https://player.vimeo.com/external/371433846.sd.mp4?s=2315b6321533482839cfbae27310f1ee6e02613b&profile_id=164&oauth2_token_id=57447761"
+    ],
+    "message": "Hello Royal Priest Studios, I'd like to book Ministry Media coverage."
   },
   {
+    "id": "corporate-shoots",
     "icon": "🏢",
     "title": "Corporate Shoots",
-    "desc": "Brand photography and video content that positions your business with authority and professionalism.",
-    "price": "From ₦60,000",
-    "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800",
-    "video": "",
-    "message": "Hello Royal Priesthood Studio, I'd like to book a Corporate Shoot."
+    "shortDescription": "Brand photography and video content that positions your business with authority.",
+    "longDescription": "From executive headshots to architectural office photography, we construct high-authority corporate visual identities perfect for websites, annual reports, and LinkedIn presentation layouts.",
+    "pricing": {
+      "baseAmount": 60000,
+      "currency": "NGN",
+      "displayPrice": "From ₦60,000",
+      "hasPromotion": false,
+      "promotionDetails": null,
+      "paymentStructure": {
+        "requiresDeposit": true,
+        "depositType": "percentage",
+        "depositValue": 50,
+        "installmentsAllowed": false,
+        "milestones": [
+          { "label": "Retainer Invoice", "percentage": 50, "amount": 30000 },
+          { "label": "Final Delivery Invoice", "percentage": 50, "amount": 30000 }
+        ]
+      }
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800"
+    ],
+    "videos": [],
+    "message": "Hello Royal Priest Studios, I'd like to book a Corporate Shoot."
   },
   {
+    "id": "post-production",
     "icon": "✂️",
     "title": "Post Production",
-    "desc": "Expert editing, color grading, and retouching that elevates every image and video to its fullest potential.",
-    "price": "From ₦15,000",
-    "image": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800",
-    "video": "",
-    "message": "Hello Royal Priesthood Studio, I'd like to enquire about Post Production services."
+    "shortDescription": "Expert editing, color grading, and mixing that elevates raw stems or media files.",
+    "longDescription": "Send us your raw audio stems or raw video files from anywhere. Our engineering desk specializes in advanced vocal tuning, surgical EQ mixing, and stylized video color-grading workflows to bring out professional-grade finishes.",
+    "pricing": {
+      "baseAmount": 15000,
+      "currency": "NGN",
+      "displayPrice": "From ₦15,000 per track/scene",
+      "hasPromotion": false,
+      "promotionDetails": null,
+      "paymentStructure": {
+        "requiresDeposit": false,
+        "depositType": "none",
+        "depositValue": 0,
+        "installmentsAllowed": false,
+        "milestones": [
+          { "label": "Upfront Pay in Full", "percentage": 100, "amount": 15000 }
+         ]
+      }
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800"
+    ],
+    "videos": [],
+    "message": "Hello Royal Priest Studios, I'd like to enquire about Post Production services."
   },
   {
+    "id": "creative-art-direction",
     "icon": "🎨",
     "title": "Creative Art Direction",
-    "desc": "Concept development and styling for unique editorial shoots that demand a high-art aesthetic.",
-    "price": "From ₦45,000",
-    "image": [
+    "shortDescription": "Concept development and styling for unique editorial shoots.",
+    "longDescription": "A collaborative session bringing high-art aesthetics to fashion, music album art, or thematic branding structures. We assist from mood-board ideation down to props and background coordination.",
+    "pricing": {
+      "baseAmount": 45000,
+      "currency": "NGN",
+      "displayPrice": "From ₦45,000",
+      "hasPromotion": false,
+      "promotionDetails": null,
+      "paymentStructure": {
+        "requiresDeposit": true,
+        "depositType": "percentage",
+        "depositValue": 50,
+        "installmentsAllowed": false,
+        "milestones": [
+          { "label": "Concept Approval Retainer", "percentage": 50, "amount": 22500 },
+          { "label": "Shoot Day Execution Balance", "percentage": 50, "amount": 22500 }
+        ]
+      }
+    },
+    "images": [
       "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=800",
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800"
     ],
-    "video": "",
-    "message": "Hello Royal Priesthood Studio, I'd like to collaborate on Creative Art Direction."
+    "videos": [],
+    "message": "Hello Royal Priest Studios, I'd like to collaborate on Creative Art Direction."
   },
   {
+    "id": "maternity-newborn",
     "icon": "👶",
     "title": "Maternity & Newborn",
-    "desc": "Capturing the tender beginnings of life with patience and artistic softness.",
-    "price": "From ₦30,000",
-    "image": "https://images.unsplash.com/photo-1555243896-c709bfa0b564?auto=format&fit=crop&q=80&w=800",
-    "video": "",
-    "message": "Hello Royal Priesthood Studio, I'd like to book a Maternity/Newborn session."
+    "shortDescription": "Capturing the tender beginnings of life with patience and artistic softness.",
+    "longDescription": "A dedicated, unhurried photo experience designed to protect baby safety and parental comfort. Perfect for capturing precious maternity expressions and sweet newborn milestones with soft, ethereal textures.",
+    "pricing": {
+      "baseAmount": 30000,
+      "currency": "NGN",
+      "displayPrice": "From ₦30,000",
+      "hasPromotion": false,
+      "promotionDetails": null,
+      "paymentStructure": {
+        "requiresDeposit": true,
+        "depositType": "percentage",
+        "depositValue": 50,
+        "installmentsAllowed": false,
+        "milestones": [
+          { "label": "Booking Reservation", "percentage": 50, "amount": 15000 },
+          { "label": "Session Wrap Balance", "percentage": 50, "amount": 15000 }
+        ]
+      }
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1555243896-c709bfa0b564?auto=format&fit=crop&q=80&w=800"
+    ],
+    "videos": [],
+    "message": "Hello Royal Priest Studios, I'd like to book a Maternity/Newborn session."
   },
   {
+    "id": "documentary-filming",
     "icon": "🎥",
     "title": "Documentary Filming",
-    "desc": "In-depth storytelling for non-profits and personal legacies, turning memories into cinematic history.",
-    "price": "From ₦100,000",
-    "image": "",
-    "video": "https://player.vimeo.com/external/494252666.sd.mp4?s=72973a92b1bb2f7a0862024b0b8c005b8a05c31f&profile_id=164&oauth2_token_id=57447761",
-    "message": "Hello Royal Priesthood Studio, I'm interested in a Documentary Filming project."
+    "shortDescription": "In-depth storytelling for non-profits, organizations, and corporate legacies.",
+    "longDescription": "Complete visual journalism assets tracking social impact stories, corporate retrospectives, or biography logs. Includes structured interview audio design, b-roll architecture, and narrative pacing edits.",
+    "pricing": {
+      "baseAmount": 100000,
+      "currency": "NGN",
+      "displayPrice": "From ₦100,000",
+      "hasPromotion": false,
+      "promotionDetails": null,
+      "paymentStructure": {
+        "requiresDeposit": true,
+        "depositType": "percentage",
+        "depositValue": 30,
+        "installmentsAllowed": true,
+        "milestones": [
+          { "label": "Pre-production & Scripting Lock", "percentage": 30, "amount": 30000 },
+          { "label": "Principal Photography Execution", "percentage": 40, "amount": 40000 },
+          { "label": "Final Draft Delivery Closeout", "percentage": 30, "amount": 30000 }
+        ]
+      }
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800"
+    ],
+    "videos": [
+      "https://player.vimeo.com/external/494252666.sd.mp4?s=72973a92b1bb2f7a0862024b0b8c005b8a05c31f&profile_id=164&oauth2_token_id=57447761",
+      "https://player.vimeo.com/external/371433846.sd.mp4?s=2315b6321533482839cfbae27310f1ee6e02613b&profile_id=164&oauth2_token_id=57447761"
+    ],
+    "message": "Hello Royal Priest Studios, I'm interested in a Documentary Filming project."
   },
   {
+    "id": "graduation-packages",
     "icon": "🏫",
     "title": "Graduation Packages",
-    "desc": "Commemorative photoshoots for graduates to celebrate academic milestones and new beginnings.",
-    "price": "From ₦20,000",
-    "image": "https://images.unsplash.com/photo-1523050335392-93851179ae22?auto=format&fit=crop&q=80&w=800",
-    "video": "",
-    "message": "Hello Royal Priesthood Studio, I'd like to book a Graduation photoshoot."
+    "shortDescription": "Commemorative photoshoots for graduates to celebrate academic milestones.",
+    "longDescription": "High-clarity solo gown portraits and family celebratory shots on-campus or in-studio. Designed to preserve academic accomplishments with clean, dynamic visual finishes.",
+    "pricing": {
+      "baseAmount": 20000,
+      "currency": "NGN",
+      "displayPrice": "From ₦20,000",
+      "hasPromotion": true,
+      "promotionDetails": {
+        "promoCode": "GRAD2026",
+        "discountType": "percentage",
+        "discountValue": 15,
+        "calculatedAmount": 17000
+      },
+      "paymentStructure": {
+        "requiresDeposit": true,
+        "depositType": "percentage",
+        "depositValue": 50,
+        "installmentsAllowed": false,
+        "milestones": [
+          { "label": "Session Slot Deposit", "percentage": 50, "amount": 10000 },
+          { "label": "Photo Proofing Clearance", "percentage": 50, "amount": 10000 }
+        ]
+      }
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1523050335392-93851179ae22?auto=format&fit=crop&q=80&w=800"
+    ],
+    "videos": [],
+    "message": "Hello Royal Priest Studios, I'd like to book a Graduation photoshoot."
   }
 ]
