@@ -1,11 +1,11 @@
 {
   "name": "Royal Priest Studios",
   "metaTitle": "Royal Priest Studios | Music, Photography & Videography in Ibadan",
-  "metaDescription": "Royal Priesthood Studio captures sacred stories, weddings, events and creative portfolios with cinematic photography and videography in Ibadan, Nigeria.",
+  "metaDescription": "Royal Priest Studios captures sacred stories, weddings, events and creative portfolios with cinematic photography and videography in Ibadan, Nigeria.",
   "logo": "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=400&q=80",
   "heroImage": "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=1200&q=80",
   "ogImage": "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=1200&q=80",
-  "heroHeadline": "Royal Priest Studio",
+  "heroHeadline": "Royal Priest Studios",
   "heroSubheading": "Capturing moments. Telling sacred stories. Framing eternity.",
   "tagline": "Where Creativity Meets Sound",
   "description": "At Royal Priest Studios, we believe every project deserves attention to detail, creativity, and professionalism. From intimate studio sessions to large-scale productions, our goal is to deliver clean sound, stunning visuals, and memorable experiences that exceed expectations.",
@@ -40,5 +40,30 @@
     { "num": "90+", "label": "Happy Clients" },
     { "num": "40+", "label": "Events Covered" },
     { "num": "100%", "label": "Satisfaction Rate" }
-  ]
+  ],
+  "operatingHours": {
+    "timezone": "Africa/Lagos",
+    "schedule": [
+      { "day": "Monday", "open": "09:00 AM", "close": "06:00 PM", "isOpen": true },
+      { "day": "Tuesday", "open": "09:00 AM", "close": "06:00 PM", "isOpen": true },
+      { "day": "Wednesday", "open": "09:00 AM", "close": "06:00 PM", "isOpen": true },
+      { "day": "Thursday", "open": "09:00 AM", "close": "06:00 PM", "isOpen": true },
+      { "day": "Friday", "open": "09:00 AM", "close": "06:00 PM", "isOpen": true },
+      { "day": "Saturday", "open": "09:00 AM", "close": "06:00 PM", "isOpen": true },
+      { "day": "Sunday", "open": "Closed", "close": "Closed", "isOpen": false, "note": "By Appointment Only" }
+    ]
+  },
+  "holidays": {
+    "observed": [
+      { "name": "New Year's Day", "date": "January 1", "status": "Closed" },
+      { "name": "Good Friday", "date": "Varies", "status": "Closed" },
+      { "name": "Easter Monday", "date": "Varies", "status": "Closed" },
+      { "name": "Eid al-Fitr", "date": "Varies", "status": "Closed" },
+      { "name": "Eid al-Adha", "date": "Varies", "status": "Closed" },
+      { "name": "Independence Day", "date": "October 1", "status": "Closed" },
+      { "name": "Christmas Day", "date": "December 25", "status": "Closed" },
+      { "name": "Boxing Day", "date": "December 26", "status": "Closed" }
+    ],
+    "policyNote": "On public holidays, the physical studio is closed, but event photography and videography bookings can still be fulfilled if reserved and confirmed in advance."
+  }
 }
