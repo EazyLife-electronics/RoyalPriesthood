@@ -9,35 +9,36 @@
   "heroSubheading": "Capturing moments. Telling sacred stories. Framing eternity.",
   "tagline": "Where Creativity Meets Sound",
   "description": "At Royal Priest Studios, we believe every project deserves attention to detail, creativity, and professionalism. From intimate studio sessions to large-scale productions, our goal is to deliver clean sound, stunning visuals, and memorable experiences that exceed expectations.",
+  "businessCategory": "Music, Photography & Videography",
+  "servicesSummary": "Music project, quick live session, Mixing and mastering, Luxury wedding coverage, portraits, corporate shoots and birthday shoots.",
   "location": "Ibadan, Oyo State, Nigeria",
   "address": "Ibadan, Oyo State, Nigeria",
-  "whatsapp": "+2347080868471",
-  "email": "royalprieststudio@gmail.com",
-  "website": "https://royalpriesthoodstudio.com",
-  "social": {
-    "instagram": "@rpstudios_ng, @royalpriestmusic_studio, @the_rpevents",
-    "facebook": "https://facebook.com/royalpriestmusicstudio, https://facebook.com/rpstudiosng",
-    "youtube": "https://www.youtube.com/@RoyalPriestTv",
-    "tiktok": "https://www.tiktok.com/@royalprieststudios"
+  "contact": {
+    "whatsapp": "+2347080868471",
+    "email": "royalprieststudio@gmail.com",
+    "website": "https://rpstudio.com"
   },
-  "businessCategory": "Music, Photography & Videography",
-  "servicesSummary": "Music project, quick live session, Mixing and mastering, Luxury wedding coverage, portraits, corporate shoots and  birthday shoots.",
+  "social": {
+    "instagram": [
+      "https://instagram.com/rpstudios_ng",
+      "https://instagram.com/royalpriestmusic_studio",
+      "https://instagram.com/the_rpevents"
+    ],
+    "facebook": [
+      "https://facebook.com/royalpriestmusicstudio",
+      "https://facebook.com/rpstudiosng"
+    ],
+    "youtube": [
+      "https://www.youtube.com/@RoyalPriestTv"
+    ],
+    "tiktok": [
+      "https://www.tiktok.com/@royalprieststudios"
+    ]
+  },
   "stats": [
-    {
-      "num": "700+",
-      "label": "Sessions Done"
-    },
-    {
-      "num": "90+",
-      "label": "Happy Clients"
-    },
-    {
-      "num": "40+",
-      "label": "Events Covered"
-    },
-    {
-      "num": "100%",
-      "label": "Satisfaction Rate"
-    }
+    { "num": "700+", "label": "Sessions Done" },
+    { "num": "90+", "label": "Happy Clients" },
+    { "num": "40+", "label": "Events Covered" },
+    { "num": "100%", "label": "Satisfaction Rate" }
   ]
 }
